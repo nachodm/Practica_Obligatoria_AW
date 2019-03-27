@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Amigos - Facebluff</title>
+    <meta name="description" content="Facebluff">
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="../css/friends.css">
+</head>
+
+<body>
+    <header>
+        <div class="sup">
+            FACEPLUFF
+        </div>
+        <div class="navbar">
+            <a href="profile">Perfil</a>
+            <a class="active" href="#">Amigos</a>
+            <a href="questions">Preguntas</a>
+            <a href="#">Desconectar</a>
+            <div> 50 pts</div>
+        </div>
+    </header>
+    <div id="left">
+
+        <h2>Solicitudes de amistad</h2>
+        <table>
+            <tr>
+                <td colspan="4">
+                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                        href="#"> Bruja piruja </a>
+                </td>
+                <td class="bord">
+                    <input class="profile_button" type="submit" value="Aceptar">
+                </td>
+                <td>
+                    <input class="profile_button" type="submit" value="Rechazar">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                        href="#"> Stuart minion </a>
+                </td>
+                <td>
+                    <input class="profile_button" type="submit" value="Aceptar">
+                </td>
+                <td>
+                    <input class="profile_button" type="submit" value="Rechazar">
+                </td>
+            </tr>
+        </table>
+        <h2 class="mytext">Mis amigos</h2>
+        <table>
+            <tr>
+                <td>
+                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                        href="#"> Bruja piruja </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                        href="#"> Stuart minion </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="right">
+        <form action="/friends_Search" method="POST">
+            <input type="text" name="findUser" id="findUser" placeholder="Buscar usuarios">
+            <button type="submit" value="Buscar">Buscar</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

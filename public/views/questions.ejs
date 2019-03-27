@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    	<title>Amigos - Facebluff</title>
+        <meta name="description" content="Facebluff">
+        <meta charset ="utf-8"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    	<link type="text/css" rel="stylesheet" href="../css/questions.css">
+    </head>
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFF
+            </div>
+            <div class="navbar">           
+                <a href="profile">Perfil</a>        
+                <a href="friends">Amigos</a>        
+                <a class="active" href="#">Preguntas</a>        
+                <a href="#">Desconectar</a>
+                <div> 50 pts</div>
+            </div>
+        </header>
+        <div id="content">
+            <h2>Preguntas seleccionadas aleatoriamente</h2>
+            <% if (questions !== undefined) { %>
+                <% questions.forEach(p =>{ %>
+                    <a class="questions" href="/question?id=<%= questions.id%>" type="submit"><%= p.text %></a>
+                <% }) %>
+            <% } else { %>
+                    <p>No hay ningúna pregunta, ¡Añadelas!</p>
+            <% } %>
+            <h2>¡Añade tus preguntas!</h2>
+            <a id="newq" type="submit" href="/newQuestion">Crear nueva pregunta</a>
+        </div>
+        
+    </body>
+</html>

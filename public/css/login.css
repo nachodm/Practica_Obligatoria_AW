@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Margarine');
+@import url('https://fonts.googleapis.com/css?family=Exo');
+
+
+*{
+    margin: 0;
+    top: 0;
+}
+
+.header{
+  
+    font-family: 'Margarine', cursive !important;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+.sup{
+    height: 130px;
+    font-size: 100px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: yellow;
+}
+
+.navbar {
+    width: 100%;
+    background-color: whitesmoke;
+    overflow: auto;
+    font-size: 20px;
+  }
+
+.navbar a {
+    float: left;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: black;
+    text-decoration: none;
+    font-size: 17px;
+    width: 25%; 
+    text-align: center; 
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #084270;
+    opacity: 0.95;
+}
+  
+.navbar a.active {
+    background-color: rgb(212, 212, 212);
+}
+
+.boxes{
+    height: 58px;
+}
+
+p{
+    margin-top: 15px;
+}
+
+body{
+    background-color: #084270;
+    font-family: 'Exo', sans-serif;
+}
+
+.body2{
+    min-height: 80vh;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+}
+
+#title{
+    text-align: center;
+    margin-top: 5%;
+    font-size: 46px;
+    color: white;
+}
+
+.login{
+    padding: 50px;
+    background-color: whitesmoke;
+    border: solid 2px #333333;
+    color: black;
+}
+
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #084270;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 16px;
+}
+
+footer {
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 70px;
+    position: static;
+    bottom: 0;
+    background: #333333;
+    width:100%;
+    text-align: center;
+    color: whitesmoke;
+ }

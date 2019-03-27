@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Facebluff">
+        <title>Perfil - Facepluff</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link href="../css/profile.css" rel ="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFF
+            </div> 
+            <div class="navbar">           
+                <a class="active" href="#">Perfil</a>        
+                <a href="friends">Amigos</a>        
+                <a href="questions">Preguntas</a>        
+                <a href="#">Desconectar</a>
+                <% if(data) { %>
+                <a> <%= data.points %></a>
+                <% } %>
+            </div>
+        </header>
+            <div id="content">
+                    <h1>Tu perfil</h1>
+                    <table id="displayProfile">
+                        <% if (data) { %>
+                        <tr>
+                            <td rowspan="4" colspan="4">    
+                                <img class="icon" src="img/cara.png" alt="profile picture"/></td>
+                            <td class="data"><%= data.name %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= data.birthday %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= data.gender %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= data.points %></td>
+                        </tr>
+                        <% } %>
+                    </table>
+                    <input class="profile_button" type="submit" value="Modificar Usuario">
+            </div>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    	<title>Amigos - Facebluff</title>
+        <meta name="description" content="Facebluff">
+        <meta charset ="utf-8"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link type="text/css" rel="stylesheet" href="css/questions.css">
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <header>
+            <img id="logo" src="img/logo.png" alt="Logo Facebluff"> 
+            <div class="navbar">           
+                <a href="/profile">Perfil</a>        
+                <a href="/friends">Amigos</a>        
+                <a class="active" href="#">Preguntas</a>        
+                <a href="/logout">Desconectar</a>
+                <a> 0 puntos</a>
+            </div>
+        </header>
+        <div id="content">
+            <% if (data) %>
+            <h2><%= data.text %></h2>
+                <ul>
+                    <form method="POST" action="/answerQuestion">
+                        <input type="hidden" name="answer" value="<%=data.answers[0].option_1%>">
+                        <input name="qid" type="hidden" value="<%= data.id %>">
+                        <li class="questions answ"><button type="submit">Responder</button> <%= data.answers[0] %></li>
+                    </form>
+                    <form method="POST" action="/answerQuestion">
+                        <input type ="hidden" name= "answer" value="<%=data.answers[1].option_2%>" >
+                        <input name="qid" type="hidden" value="<%= data.id %>">
+                        <li class="questions answ"><button type="submit">Responder</button> <%= data.answers[1] %></li>
+                    </form>
+                    <% if (data.answers.length > 2) { %>
+                        <form method="POST" action="/answerQuestion">
+                            <input type ="hidden" name= "answer" value="<%=data.answers[2].option_3%>" >
+                            <input name="qid" type="hidden" value="<%= data.id %>">
+                            <li class="questions answ"><button type="submit">Responder</button> <%= data.answers[2] %></li>
+                        </form>
+                    <% } %>
+                    <% if ((data.answers.length > 3)) { %>
+                        <form method="POST" action="/answerQuestion">
+                            <input type ="hidden" name= "answer" value="<%=data.answers[3].option_4%>">
+                            <input name="qid" type="hidden" value="<%= data.id %>">
+                            <li class="questions answ"><button type="submit">Responder</button> <%= data.answers[3] %></li>
+                        </form>
+                    <% } %>
+                    <form method="POST" action="/answerQuestion">
+                        <input name="qid" type="hidden" value="<%= data.id %>">
+                        <li class="questions answ"><button type="submit">Responder</button> <input type="text" name="answer" placeholder="Otra respuesta"></li>
+                    </form>                    
+                </ul>
+        </div>
+    </body>
+</html>

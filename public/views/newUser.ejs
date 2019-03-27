@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Facebluff">
+        <title>Registrarse - Facebluff</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link href="../css/newUser.css" rel ="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFF
+            </div>
+            <div class="navbar">
+                <a href="login">Entrar</a>
+                <a class="active" href="#">Nuevo Usuario</a>
+            </div>
+        </header>
+
+        <div class="body2">
+            <div id="title"><strong>Nuevo Usuario</strong></div>
+            <div class ="login">
+                <form id="loginform" method="POST" action="/signUp">
+                    <div class="container">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Introduce el email" name="email" required>
+                    
+                        <label for="psw"><b>Contraseña</b></label>
+                        <input type="password" placeholder="Introduce la contraseña" name="psw" required>
+                    
+                        <label for="name"><b>Nombre completo</b></label>
+                        <input type="text" placeholder="Introduce nombre y apellidos" name="name" required>
+                        <br>
+                        <br>
+                        <label for="gender"><b>Sexo</b></label>
+                        <input type="radio" name="gender" value="male" />Masculino
+                        <input type="radio" name="gender" value="female" />Femenino
+                        <input type="radio" name="gender" value="other" checked/>Otro
+                        <br>
+                        <br>
+                        <label for="bdate"><b>Fecha de nacimiento</b></label>
+                        <input type="date" placeholder="dd/mm/aaaa" name="bdate" >
+                        <label for="picture"><b>Imagen de perfil</b></label>
+                        <input type="file" name="picture" >
+
+                        <button type="submit">Crear usuario</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+
+        <footer>
+            <p> 
+                Ignacio Domingo 
+            </p>
+            <p>
+            Alberto Fernández-Baíllo
+            </p>  
+        </footer>
+        <script type="text/javascript" src="DAOS/daoUsers.js"></script>
+    </body>
+</html>

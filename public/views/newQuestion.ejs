@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Nueva Pregunta - Facebluff</title>
+        <meta name="description" content="Facebluff">
+        <meta charset ="utf-8"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link type="text/css" rel="stylesheet" href="../css/newQuestion.css">
+     
+    </head>
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFFS
+            </div>
+            <div class="navbar">           
+                <a href="/profile">Perfil</a>        
+                <a href="/friends">Amigos</a>        
+                <a href="/questions">Preguntas</a>        
+                <a href="/logout">Desconectar</a>
+                <div> 0 puntos</div>
+            </div>
+        </header>
+        <div class="content">
+            <div id="title"><strong>Nueva Pregunta</strong></div>
+            <div class ="question">
+                <form id="quesinf" method="POST" action="/createnewquestion">
+                    <div class="container">
+                        <label for="question"><b>Pregunta</b></label>
+                        <input type="text" placeholder="Introduce la Pregunta" name="question_text" required>
+                            
+                        <label for="answer1"><b>Primera respuesta</b></label>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_1" required>
+                            
+                        <label for="answer2"><b>Segunda respuesta</b></label>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_2" required>
+        
+                        <label for="answer3"><b>Tercera respuesta</b></label>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_3">
+        
+                        <label for="answer4"><b>Cuarta respuesta</b></label>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_4">
+                        
+                        <button type="submit" >Crear Pregunta</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </body>
+</html>

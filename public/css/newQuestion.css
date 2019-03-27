@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Margarine');
+@import url('https://fonts.googleapis.com/css?family=Exo');
+
+html, body {
+    top: 0;
+    margin: 0;
+    height: 100%;
+    font-family: 'Exo', sans-serif;
+    background-color: #084270;
+}
+
+header{
+    font-family: 'Margarine', cursive !important;
+    text-align: center;
+    background-color: whitesmoke;
+
+}
+
+.sup{
+    height: 130px;
+    font-size: 100px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: yellow;
+}
+
+.navbar {
+    width: 100%;
+    background-color: whitesmoke;
+    overflow: auto;
+}
+
+/* Navigation links */
+.navbar a {
+    float: left;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: black;
+    text-decoration: none;
+    font-size: 17px;
+    width: 20%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+    text-align: center; /* If you want the text to be centered */
+    transition: 0.3s;
+    
+}
+
+a{
+    text-decoration: none !important;
+
+}
+  
+/* Add a background color on mouse-over */
+.navbar a:hover {
+    background-color: #084270;
+    opacity: 0.95;
+}
+  
+/* Style the current/active link */
+.navbar a.active {
+    color: whitesmoke;
+    background-color: #084270;
+}
+  
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+      width: 100%;
+      text-align: left; /* If you want the text to be left-aligned on small screens */
+    }
+}
+
+.content{
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 200px;
+}
+
+#title{
+    text-align: center;
+    margin-top: 5%;
+    font-size: 46px;
+}
+
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+      
+    #title {
+        font-size: 30px;
+    }
+}
+
+.question{
+    padding: 50px;
+    background-color: whitesmoke;
+    border: solid 2px #333333;
+    color: black;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+/* Bordered form */
+form {
+    border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password], input[type=date], input[type=file] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=radio] {
+    margin-left: 5%;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #084270;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+footer {
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 70px;
+    position: static;
+    bottom: 0;
+    background: #333333;
+    width:100%;
+    text-align: center;
+    color: whitesmoke;
+}
