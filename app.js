@@ -68,36 +68,37 @@ app.get("/friends", (request, response) => {
     response.render("friends");
 })
 
-app.post("/createnewquestion" , (request, response) =>{
+app.post("/createnewquestion", (request, response) => {
     var data = {
         text: request.body.question_text,
         answers: [request.body.option_1, request.body.option_2]
     }
-    if(request.body.option3 !== null) data.answers.push(request.body.option_3);
+    if (request.body.option3 !== null) data.answers.push(request.body.option_3);
     if (request.body.option4 !== null) data.answers.push(request.body.option_4);
-    daoquestions.newQuestion(data, (err) =>{
-        if(err) console.log(err);
+    daoquestions.newQuestion(data, (err) => {
+        if (err) console.log(err);
         else response.redirect("questions");
     })
 })
 
-app.get("/newQuestion", (request, response) =>{
+app.get("/newQuestion", (request, response) => {
     response.render("newQuestion")
 })
 
-app.get("/questions", (request, response) =>{
-    daoquestions.getQuestions((err, result)=>{
-        daoquestions.getQuestionData(result, (err, data) =>{
-            if(err) console.log(err);
-            else response.render("questions", {questions: data});
-        })
+app.get("/questions", (request, response) => {
+    daoquestions.getQuestions((err, result) => {
+
+        if (err) console.log(err);
+        else response.render("questions", { questions: result });
+
     });
 })
 
-app.get("/question", (request, response) =>{
-    var id = request.param.id;
-    daoquestions.getQuestionData(id,(err)=>{
-
+app.get("/question", (request, response) => {
+    var id = request.query.id;
+    daoquestions.getQuestionData(id, (err, result) => {
+        if(err) console.log(err);
+        else response.render("question", {data: result});
     })
 })
 
@@ -140,7 +141,7 @@ app.post("/signUp", (request, response) => {
             request.session.userData = userData;
             response.redirect("profile");
         }
-    })     
+    })
 })
 
 app.listen(config.port, function (err) {

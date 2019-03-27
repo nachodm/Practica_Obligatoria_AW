@@ -9,10 +9,15 @@ CREATE TABLE `users` (
 );
 
 CREATE TABLE `questions`(
-    `question_ID` INTEGER ,
+    `question_ID` INTEGER AUTO_INCREMENT ,
     `text` VARCHAR (256) NOT NULL,
-    `answer` VARCHAR (256) NOT NULL,
-    PRIMARY KEY (`question_ID`, `text`, `answer`)
+    PRIMARY KEY (`question_ID`)
+);
+
+CREATE TABLE `questions_answers` (
+    `question_ID` INTEGER,
+    `answer` VARCHAR(256) NOT NULL,
+    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
 );
 
 CREATE TABLE `answers`(
@@ -31,4 +36,13 @@ CREATE TABLE `friends`(
     CONSTRAINT `friends_fk1`FOREIGN KEY (`user1`) REFERENCES `users`(`email`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `friends_fk2`FOREIGN KEY (`user2`) REFERENCES `users`(`email`) ON DELETE CASCADE ON UPDATE CASCADE
     
+);
+
+CREATE TABLE `user_answers`(
+    `email` VARCHAR(256),
+    `question_ID` INTEGER,
+    `answer` VARCHAR(256),
+    FOREIGN KEY (`email`) REFERENCES `users`(`email`),
+    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`),
+    FOREIGN KEY (`answer`) REFERENCES `questions_answers`(`answer`)
 );
