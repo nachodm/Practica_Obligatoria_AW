@@ -98,7 +98,13 @@ app.get("/question", (request, response) => {
     var id = request.query.id;
     daoquestions.getQuestionData(id, (err, result) => {
         if(err) console.log(err);
-        else response.render("question", {data: result});
+        daoquestions.isAnswered(id,request.session.currentUser,(err, answered)=>{
+            if(err) console.log(err);
+            daoquestions.friendsAnswers(request.session.currentUser, id, (err, friends) =>{
+                if(err) console.log(err);
+                else response.render("question", {data: result, answered: answered, user: request.session.currentUser, friends: friends});
+            })
+        })
     })
 })
 

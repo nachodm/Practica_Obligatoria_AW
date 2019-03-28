@@ -43,6 +43,5 @@ CREATE TABLE `user_answers`(
     `question_ID` INTEGER,
     `answer` VARCHAR(256),
     FOREIGN KEY (`email`) REFERENCES `users`(`email`),
-    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`),
-    FOREIGN KEY (`answer`) REFERENCES `questions_answers`(`answer`)
+    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
 );

@@ -64,6 +64,37 @@ class DAOQuestions {
             }
         });
     }
+
+    isAnswered(id,email, callback){
+        this.pool.getConnection((err, conn)=>{
+            if(err) callback("Error de acceso a la BBDD");
+            else{
+                conn.query("SELECT answer FROM user_answers WHERE question_id = ? AND email = ?", [id, email], (err, row)=>{
+                    if(err) callback("Error de conexion a la BBDD");
+                    else{
+                        if (row.answer !== null) callback(undefined, false);
+                        else callback(undefined, true);
+                    }
+                })
+            }
+        })
+    }
+
+    friendsAnswers(user1, id, callback){
+        this.pool.getConnection((err,conn)=>{
+            if(err) callback("Error de acceso a la BBDD", false);
+            else{
+                conn.query("SELECT * FROM `friends` INNER JOIN user_answers WHERE user1 = ? AND question_ID = ? AND status = ?",
+                [user1, id, 2], (err, rows) =>{             
+                    if(err) callback("Error de conexion a la BBDD", false);
+                    else{
+                        console.log(rows);
+                        callback(false, rows);
+                    }
+                })
+            }
+        })
+    }
 }
 
 module.exports = DAOQuestions;
