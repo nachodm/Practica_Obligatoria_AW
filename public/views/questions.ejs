@@ -25,7 +25,6 @@
             <h2>Preguntas seleccionadas aleatoriamente</h2>
             <% if (questions !== undefined) { %>
                 <% questions.forEach(p =>{ %>
-                    
                     <a class="questions" href="/question?id=<%=p.question_ID%>" type="submit"><%= p.text %></a>
                 <% }) %>
             <% } else { %>

@@ -95,6 +95,8 @@ class DAOQuestions {
             }
         })
     }
+
+    answer_guesses(user){}
 }
 
 module.exports = DAOQuestions;

@@ -45,3 +45,16 @@ CREATE TABLE `user_answers`(
     FOREIGN KEY (`email`) REFERENCES `users`(`email`),
     FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
 );
+
+CREATE TABLE `users_guesses` (
+    `email` varchar(50) NOT NULL,
+    `friendEmail` varchar(50) NOT NULL,
+    `question_id` int(20) NOT NULL,
+    `correct` tinyint(1) NOT NULL,
+    PRIMARY KEY (`email`,`friendEmail`,`question_ID`),
+    KEY `users_guesses_fk_2` (`friendEmail`),
+    KEY `users_guesses_fk_3` (`question_ID`),
+    CONSTRAINT `users_guesses_fk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `users_guesses_fk_2` FOREIGN KEY (`FriendEmail`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `users_guesses_fk_3` FOREIGN KEY (`question_ID`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
