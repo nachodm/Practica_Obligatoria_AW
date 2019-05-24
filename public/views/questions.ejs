@@ -27,7 +27,7 @@
                 <% if (questions !== undefined) { %>
                     <ul>
                     <% questions.forEach(p =>{ %>
-                        <li><a class="questions" href="/question?id=<%=p.questions_ID%>" type="submit"><%= p.text %></a></li>
+                        <li><a class="questions" href="/question?id=<%=p.id%>" type="submit"><%= p.text %></a></li>
                     <% }) %>
                  </ul>
                 <% } else { %>
@@ -35,7 +35,7 @@
                 <% } %>
             </div>
             <h1>¡Añade tus preguntas!</h1>
-            <a id="newq" type="submit" href="/newQuestion">Crear nueva pregunta</a>
+            <a id="newq" type="submit" href="/newquestion">Crear nueva pregunta</a>
         </div>
         
     </body>

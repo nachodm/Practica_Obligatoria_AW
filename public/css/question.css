@@ -7,13 +7,12 @@
     top: 0;
 }
 
-.
 html, body {
-    top: 0;
-    margin: 0;
-    height: 100%;
-    font-family: 'Exo', sans-serif;
-    background-color: #084270;
+  top: 0;
+  margin: 0;
+  height: 100%;
+  font-family: 'Exo', sans-serif;
+  background-color: #084270;
 }
 
 .sup{
@@ -81,3 +80,35 @@ header{
       }
   }
 
+  #content {
+    margin-top: 80px;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+h1{
+  margin-bottom: 30px;
+  color: whitesmoke;
+}
+
+p{
+  font-size: 30px;
+  margin-bottom: 30px;
+  color: whitesmoke;
+}
+
+#answq {
+  display: inline-block;
+  background-color: whitesmoke;
+  color: #084270;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  transition: 0.3s;
+  text-decoration: none;
+  border-radius: 5px;
+}

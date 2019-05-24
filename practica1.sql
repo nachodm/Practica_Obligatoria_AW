@@ -8,26 +8,6 @@ CREATE TABLE `users` (
     `points` int(5) DEFAULT 0
 );
 
-CREATE TABLE `questions`(
-    `question_ID` INTEGER AUTO_INCREMENT ,
-    `text` VARCHAR (256) NOT NULL,
-    PRIMARY KEY (`question_ID`)
-);
-
-CREATE TABLE `questions_answers` (
-    `question_ID` INTEGER,
-    `answer` VARCHAR(256) NOT NULL,
-    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
-);
-
-CREATE TABLE `answers`(
-    `question_ID` INTEGER NOT NULL, 
-    `email` VARCHAR(256) NOT NULL,
-    CONSTRAINT `email_fk4`FOREIGN KEY (`email`) REFERENCES `users`(`email`),
-    CONSTRAINT `questions_ID_fk3`FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
-);
-
-
 CREATE TABLE `friends`(
     `user1` VARCHAR(256) NOT NULL,
     `user2` VARCHAR(256) NOT NULL,
@@ -38,25 +18,42 @@ CREATE TABLE `friends`(
     
 );
 
-CREATE TABLE `user_answers`(
-    `email` VARCHAR(256),
-    `question_ID` INTEGER,
-    `answer` VARCHAR(256),
-    FOREIGN KEY (`email`) REFERENCES `users`(`email`),
-    FOREIGN KEY (`question_ID`) REFERENCES `questions`(`question_ID`)
+
+CREATE TABLE `questions` (
+    `id` int(20) AUTO_INCREMENT,
+    `question_text` varchar (256) NOT NULL,
+    `numbanswers` int(20) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `answers` (
+    `Qid` int(20) NOT NULL,
+    `Aid` int(20) NOT NULL,
+    `text` varchar(200) NOT NULL,
+    PRIMARY KEY (`Qid`,`Aid`),
+    CONSTRAINT `answers_fk1` FOREIGN KEY (`Aid`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `users_guesses` (
     `email` varchar(50) NOT NULL,
     `friendEmail` varchar(50) NOT NULL,
-    `question_id` int(20) NOT NULL,
-    `correct` tinyint(1) NOT NULL,
-    PRIMARY KEY (`email`,`friendEmail`,`question_ID`),
+    `Qid` int(20) NOT NULL,
+    `result` tinyint(1) NOT NULL,
+    PRIMARY KEY (`email`,`friendEmail`,`Qid`),
     KEY `users_guesses_fk_2` (`friendEmail`),
-    KEY `users_guesses_fk_3` (`question_ID`),
+    KEY `users_guesses_fk_3` (`Qid`),
     CONSTRAINT `users_guesses_fk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `users_guesses_fk_2` FOREIGN KEY (`FriendEmail`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `users_guesses_fk_3` FOREIGN KEY (`question_ID`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `users_guesses_fk_3` FOREIGN KEY (`Qid`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `ownanswers` (
+    `email` varchar(50) NOT NULL,
+    `Qid` int(20) NOT NULL,
+    `text` varchar(256) NOT NULL,
+    PRIMARY KEY (`email`,`Qid`),
+    CONSTRAINT `ownanswers_fk_2` FOREIGN KEY (`Qid`) REFERENCES `answers` (`Qid`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `ownanswers_fk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

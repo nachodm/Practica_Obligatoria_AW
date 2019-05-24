@@ -76,45 +76,80 @@ app.get("/friends", (request, response) => {
     })
 })
 
-app.post("/createnewquestion", (request, response) => {
-    var data = {
-        text: request.body.question_text,
-        answers: [request.body.option_1, request.body.option_2]
+app.get("/newquestion", (request, response) => {
+    if (request.session.currentUser === undefined) {
+        response.redirect("login");
     }
-    if (request.body.option3 !== null) data.answers.push(request.body.option_3);
-    if (request.body.option4 !== null) data.answers.push(request.body.option_4);
-    daoquestions.newQuestion(data, (err) => {
-        if (err) console.log(err);
-        else response.redirect("questions");
-    })
-})
+    else {
+        response.render("newquestion", {user: request.session.currentUser});
+    }
+});
 
-app.get("/newQuestion", (request, response) => {
-    response.render("newQuestion")
-})
-
-app.get("/questions", (request, response) => {
-    daoquestions.getQuestions((err, result) => {
-
-        if (err) console.log(err);
-        else response.render("questions", { questions: result });
-
+app.post("/createnewquestion", (request, response) => {
+    let numbanswers = 2, Qid;
+    if (request.body.option_3 !== "") {
+        numbanswers++;
+        if (request.body.option_4 !== "") {
+            numbanswers++;
+        }
+    }
+    let question = {
+        question_text: request.body.question_text,
+        numbanswers: numbanswers
+    }
+    daoquestions.newQuestion(question, (err) => {
+        if (!err) {
+            daoquestions.getLastQid((err, result) => {
+                if (!err) {
+                    Qid = result - 1;
+                    daoquestions.insertAnswer(Qid, 1, request.body.option_1, (err) => {
+                        if (!err) {
+                            daoquestions.insertAnswer(Qid, 2, request.body.option_2, (err) => {
+                                if ((!err) && (numbanswers >=3)) {
+                                    daoquestions.insertAnswer(Qid, 3, request.body.option_3, (err) => {
+                                        if ((!err) && (numbanswers >=4)) {
+                                            daoquestions.insertAnswer(Qid, 4, request.body.option_4, (err) => {
+                                                if (err) {
+                                                    response.write(err);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            response.redirect("questions");
+        }
     });
+});
+app.get("/questions", (request, response) => {
+    if (request.session.currentUser === undefined) {
+        response.redirect("login");
+    }
+    else {
+        daoquestions.randomQuestion((err, questions) => {
+            response.render("questions", {user: request.session.currentUser, questions: questions});
+        }); 
+    }
 })
 
 app.get("/question", (request, response) => {
     daoquestions.getQuestionData(request.query.id, (err, question)=>{
-        daoquestions.isAnswered(request.query.id, request.session.currentUser, (err, answered) => {
+        daoquestions.isAnswered(request.query.id, request.session.currentUser.email, (err, answered) => {
             daousers.getUserFriends(request.session.currentUser.email, (err, friends) => {
                 if (!err) {
                     let answers = [];
-                  
+                
                     response.render("question", {user: request.session.currentUser, question: question, answered:answered, friends: friends});
                 }
             });
         });      
     });
 })
+
 
 app.post("/isUserCorrect", (request, response) => {
 
