@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Margarine');
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
+
 html, body {
     top: 0;
     margin: 0;
@@ -66,14 +67,20 @@ header{
     }
 }
 
+.container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 
 /*LEFT*/
 
 .left{
-    float: left;
-    width: 50%;
-    margin-left: 150px;
-    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    margin-top: 90px;
 }
 
 table {
@@ -82,9 +89,10 @@ table {
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    width: 40%;
+    width: 80%;
     text-align: left;
-    margin-left: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 td > * {
@@ -127,31 +135,47 @@ td > * {
 }
 
 h2{
-    margin-top: 100px;
-    margin-left: 350px;
+    margin-top: 20px;
+    text-align: center;
     font-size: 30px;
+    color:whitesmoke;
 }
 
 /*RIGHT*/
 
 .right{
-    float: right;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    margin-top: 50px;
+}
+
+.rightTable{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.friends_search{
+   
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 900px;
+    border-radius: 20px;
 }
 
 form {
     
-    position: absolute;
-    margin-top: -500px;
-    margin-left: 10%;
     width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input[type=text] {
   width: 60%;
   padding: 12px 20px;
   margin-top: 50px;
-  margin-right: 0;
+  margin-left: 90px;
   border: 1px solid #ccc;
 }
 

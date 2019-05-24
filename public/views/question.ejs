@@ -1,69 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <title>Pregunta - Facebluff</title>
-    <meta name="description" content="Facebluff">
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="../css/question.css">
-</head>
-
-<body>
-    <header>
-        <div class="sup">
-            FACEPLUFF
-        </div>
-        <div class="navbar">
-            <a href="profile">Perfil</a>
-            <a href="friends">Amigos</a>
-            <a class="active" href="#">Preguntas</a>
-            <a href="#">Desconectar</a>
-            <div> <%=user.points%> </div>
-        </div>
-    </header>
-    <div id="content">
-        <h2 id="title"> <%= data[0].text %> </h2>
-        <% if (!answered) { %>
-        No has contestado la pregunta.
-        <button>Responder Pregunta</button>
-        <% } else { %>
-        Ya has respondido a esta pregunta
-        <% } %>
-        <p>Los siguientes amigos han contestado a esta pregunta:</p>
-        <table>
-            <% if (friends) { %>
-            <% friends.forEach(p=>{ %>
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="../img/cara.png" /><a class="friendsView" href="#"><%=p.user2%></a><button>adivinar</button>
-                </td>
-            </tr>
-            <%})%>
-
+    <head>
+    	<title>Pregunta - Facebluff</title>
+        <meta name="description" content="Facebluff">
+        <meta charset ="utf-8"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link type="text/css" rel="stylesheet" href="../css/question.css">
+    </head>
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFF
+            </div>
+            <div class="navbar">           
+                <a href="profile">Perfil</a>        
+                <a href="friends">Amigos</a>        
+                <a class="active" href="#">Preguntas</a>        
+                <a href="#">Desconectar</a>
+                <div> 50 pts</div>
+            </div>
+        </header>
+        <div id="content">
+            <h2 id="title"><%= question.question_text %></h2>
+            <% if (answered) {%>
+                <p> Ya has respondido a esta pregunta</p>
+            <% } else { %>
+                <p> No has respondido a esta pregunta</p>
+                
+                <a id="answq" href="/answerquestion?id=<%= question.id%>">Contestar Pregunta</a> 
             <% } %>
-
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Bruja piruja </a>
-                </td>
-                <td class="bord">
-                    <span class="correct">Has acertado</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Stuart minion </a>
-                </td>
-                <td>
-                    <span class="wrong">Has fallado</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-</body>
-
+            
+            <% if (friends.length === 0) { %>
+                <p>Ninguno de tus amigos ha contestado aún a esta pregunta:</p>
+            <% } else { %>
+                <p>Los siguientes amigos han contestado a esta pregunta:</p>
+                <table>
+                    <% friends.forEach(friend => { %>
+                        <tr>
+                            <td colspan="4">
+                                <img class="icon_miniature" src="img/cara.png" alt="profile picture"/> <a class="friendsView" href="#"><%=friend.name %> </a> 
+                            </td>
+                            <!--/**<% if (friend.guessed === 0) { %>
+                                <td class="bord">
+                                    <span class="correct">Has acertado</span>
+                                </td>
+                            <% } else if (friend.guessed === 1) { %>
+                                <td>
+                                    <span class="wrong">Has fallado</span>
+                                </td>
+                            <% } else { %>
+                                <td class="bord">
+                                    <input class="guess_button" type="submit" value="Adivinar">
+                                </td>
+                            <% } %>-->
+                        </tr>
+                    <% }); %>
+                </table>
+            <% } %>
+        </div>
+    </body>
 </html>

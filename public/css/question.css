@@ -2,18 +2,18 @@
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
 
+*{
+    margin: 0;
+    top: 0;
+}
+
+.
 html, body {
     top: 0;
     margin: 0;
     height: 100%;
     font-family: 'Exo', sans-serif;
     background-color: #084270;
-}
-
-body {
-    font-family: 'Margarine', cursive !important;
-    display: flex;
-    flex-direction: column;
 }
 
 .sup{
@@ -23,10 +23,15 @@ body {
     -webkit-text-stroke-color: yellow;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 header{
+    font-family: 'Margarine', cursive !important;
     text-align: center;
     background-color: whitesmoke;
-
 }
 
 #logo {
@@ -65,91 +70,14 @@ header{
     color: whitesmoke;
     background-color: #084270;
   }
-  
-  /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
-  @media screen and (max-width: 500px) {
-        .navbar a {
-        float: none;
-        display: block;
-        width: 100%;
-        text-align: left; /* If you want the text to be left-aligned on small screens */
-        }
-    }
 
-
-    #content {
-      width: 60vw;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    }
-
-    #title {
-        padding: 2px;
-        background-color: whitesmoke;
-        opacity: 0.9;
-        border-radius: 1px;
-    }
-
-    
-table {
-    background-color:hsla(0, 100%, 90%, 0.1);
-    border-radius: 10px;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    width: 100%;
-    text-align: left;
-  }
-  
-  td > * {
-    vertical-align : middle;
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+      .navbar a {
+      float: none;
+      display: block;
+      width: 100%;
+      text-align: left; /* If you want the text to be left-aligned on small screens */
+      }
   }
 
-  
-.guess_button {
-    border: 1px solid #ccc;
-    background-color: whitesmoke;
-    color: #084270;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 90%;
-    transition: 0.3s;
-    border-radius: 5px;
-  }
-  
-  /* Add a hover effect for buttons */
-  .guess_button:hover {
-    background-color: #084270;
-    color: whitesmoke;
-    border: 1px solid whitesmoke;
-  }
-
-  .icon_miniature {
-    padding: 2px;
-    max-width:50px;
-    height: auto;
-  }
-  .friendsView {
-    text-decoration: none;
-    color: whitesmoke;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .correct {
-      color: whitesmoke;
-      text-shadow: 3px 3px 5px green;
-    }
-    .correct:hover {
-        color: green;
-    }
-    .wrong {
-        color: whitesmoke;
-        text-shadow: 3px 3px 5px red;
-    }
-    .wrong:hover {
-        color: red;
-    }

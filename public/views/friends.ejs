@@ -13,67 +13,100 @@
 <body>
     <header>
         <div class="sup">
-            FACEPLUFF
+            FACEBLUFF
         </div>
         <div class="navbar">
             <a href="profile">Perfil</a>
             <a class="active" href="#">Amigos</a>
-            <a href="questions">Preguntas</a>
-            <a href="#">Desconectar</a>
+            <a href="/questions">Preguntas</a>
+            <a href="/logout">Desconectar</a>
             <div> 50 pts</div>
         </div>
     </header>
-    <div id="left">
+   
+    <div class="container">
+        <div class="left">
 
-        <h2>Solicitudes de amistad</h2>
-        <table>
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Bruja piruja </a>
-                </td>
-                <td class="bord">
-                    <input class="profile_button" type="submit" value="Aceptar">
-                </td>
-                <td>
-                    <input class="profile_button" type="submit" value="Rechazar">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Stuart minion </a>
-                </td>
-                <td>
-                    <input class="profile_button" type="submit" value="Aceptar">
-                </td>
-                <td>
-                    <input class="profile_button" type="submit" value="Rechazar">
-                </td>
-            </tr>
-        </table>
-        <h2 class="mytext">Mis amigos</h2>
-        <table>
-            <tr>
-                <td>
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Bruja piruja </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                        href="#"> Stuart minion </a>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="right">
-        <form action="/friends_Search" method="POST">
-            <input type="text" name="findUser" id="findUser" placeholder="Buscar usuarios">
-            <button type="submit" value="Buscar">Buscar</button>
-        </form>
+           <div>
+            <h2>Solicitudes de amistad</h2>
+    
+    
+            <% if (friendsRequest) { %>
+            
+                <table> 
+                    <% friendsRequest.forEach( p=> { %>
+                    <tr>
+                        <form method="POST" action="friendResponse">
+                        <td colspan="4">
+                            <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
+                            <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                            <a class="friendsView"> <%= p.name %> </a>
+                        </td>
+                        <td class="bord">
+                            <input class="profile_button" type="submit" name="btn" value="Aceptar">
+                        </td>
+                        <td>
+                            <input class="profile_button" type="submit" name="btn" value="Rechazar">
+                        </td>
+                        </form>
+                    </tr>
+    
+                    <% }) %>
+                </table>
+            <% } %>
+           </div>
+    
+    
+           <div>
+            <h2 class="mytext">Mis amigos</h2>
+    
+            <% if(friends) { %>
+                <table>
+                    <% friends.forEach( p =>{ %>
+                    <tr>
+                        <td>
+                            <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                                href="#"> <%= p.name %></a>
+                        <td class="bord">
+                            <input class="profile_button" type="submit" value="Visitar">
+                        </td>
+                    </tr>
+                    <% }) %>
+                </table>
+                <% } %>
+    
+           </div>
+        </div>
+    
+        <div class="right">
+            <form action="/search" method="POST">
+                <input type="text" name="name" id="name" placeholder="Buscar usuarios">
+                <button type="submit" value="Buscar">Buscar</button>
+            </form>
+    
+    
+            <div class="friends_search">
+                <h2>Amigos encontrados</h2>
+                <% if (search) { %>
+                <table class="rightTable">
+                    <% search.forEach( p => { %>
+                    <tr>
+                        <form method="POST" action="sendFriendRequest">
+                        <td colspan="4">
+                            <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
+                            <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                                href="#"> <%= p.name %> </a>
+                        </td>
+                        <td class="bord">
+                            <input class="profile_button" type="submit" value="Invitar">
+                        </td>
+                        </form>
+                    </tr>
+                    <% }) %>
+                </table>
+                <% } %>
+            </div>
+        </div>
     </div>
 
 </body>

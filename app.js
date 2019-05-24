@@ -10,7 +10,9 @@ const session = require("express-session");
 const mysqlSession = require("express-mysql-session");
 const DAOUsers = require("./public/js/DAOUsers");
 const DAOQuestions = require("./public/js/DAOQuestions");
+const multer = require("multer");   
 
+const multerFactory = multer();
 
 const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
@@ -65,7 +67,13 @@ app.get("/newUser", (request, response) => {
 })
 
 app.get("/friends", (request, response) => {
-    response.render("friends");
+    daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
+        daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
+            console.log(friends);
+            console.log(friendsRequest);
+            response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends});
+        });
+    })
 })
 
 app.post("/createnewquestion", (request, response) => {
@@ -95,17 +103,17 @@ app.get("/questions", (request, response) => {
 })
 
 app.get("/question", (request, response) => {
-    var id = request.query.id;
-    daoquestions.getQuestionData(id, (err, result) => {
-        if(err) console.log(err);
-        daoquestions.isAnswered(id,request.session.currentUser,(err, answered)=>{
-            if(err) console.log(err);
-            daoquestions.friendsAnswers(request.session.currentUser, id, (err, friends) =>{
-                if(err) console.log(err);
-                else response.render("question", {data: result, answered: answered, user: request.session.currentUser, friends: friends});
-            })
-        })
-    })
+    daoquestions.getQuestionData(request.query.id, (err, question)=>{
+        daoquestions.isAnswered(request.query.id, request.session.currentUser, (err, answered) => {
+            daousers.getUserFriends(request.session.currentUser.email, (err, friends) => {
+                if (!err) {
+                    let answers = [];
+                  
+                    response.render("question", {user: request.session.currentUser, question: question, answered:answered, friends: friends});
+                }
+            });
+        });      
+    });
 })
 
 app.post("/isUserCorrect", (request, response) => {
@@ -130,7 +138,35 @@ app.post("/isUserCorrect", (request, response) => {
     })
 })
 
+app.post("/search", (request, response)=>{
+    daousers.search(request.body.name, request.session.currentUser, (err, friends)=>{
+        request.session.search = friends;
+        response.redirect("friends");
+    })
+})
 
+app.post("/friendResponse", (request, response)=>{
+    let responsebtn = false;
+    if (request.body.btn === "Aceptar") {
+        responsebtn = true;
+    }
+    daousers.friendRequestResponse(request.body.friendrequest, request.session.currentUser, responsebtn, (err, result) => {
+        if (result) {
+            response.redirect("friends");
+        }
+    });
+});
+
+
+app.post("/sendFriendRequest", (request, response) => {
+    daousers.sendFriendRequest(request.session.currentUser, request.body.friendrequest, (err, result) => {
+        if (result) {
+            console.log("hola " + result);
+            request.session.search = null;
+            response.redirect("friends");
+        }
+    });
+});
 
 app.post("/signUp", (request, response) => {
     var userData = {
@@ -148,6 +184,11 @@ app.post("/signUp", (request, response) => {
             response.redirect("profile");
         }
     })
+})
+
+app.get("/logout", (request, response)=>{
+    request.session.destroy();
+    response.redirect("/");
 })
 
 app.listen(config.port, function (err) {
