@@ -73,6 +73,13 @@ header{
     width: 100%;
 }
 
+.friendsView {
+    text-decoration: none;
+    color: whitesmoke;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
 
 /*LEFT*/
 

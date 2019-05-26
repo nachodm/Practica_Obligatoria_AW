@@ -31,7 +31,7 @@ CREATE TABLE `answers` (
     `Aid` int(20) NOT NULL,
     `text` varchar(200) NOT NULL,
     PRIMARY KEY (`Qid`,`Aid`),
-    CONSTRAINT `answers_fk1` FOREIGN KEY (`Aid`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `answers_fk1` FOREIGN KEY (`Qid`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `users_guesses` (

@@ -22,7 +22,7 @@
             </div>
         </header>
         <div id="content">
-            <h1 ><%= question.text %></h1>
+            <h1 ><%= question.question_text %></h1>
             <% if (answered) {%>
                 <p> Ya has respondido a esta pregunta</p>
             <% } else { %>
@@ -31,7 +31,7 @@
                 <a id="answq" href="/answerquestion?id=<%= question.id%>">Contestar Pregunta</a> 
             <% } %>
             
-            <% if (friends.length === 0) { %>
+            <% if (!friends) { %>
                 <p>Ninguno de tus amigos ha contestado aún a esta pregunta:</p>
             <% } else { %>
                 <p>Los siguientes amigos han contestado a esta pregunta:</p>
@@ -41,19 +41,7 @@
                             <td colspan="4">
                                 <img class="icon_miniature" src="img/cara.png" alt="profile picture"/> <a class="friendsView" href="#"><%=friend.name %> </a> 
                             </td>
-                            <!--/**<% if (friend.guessed === 0) { %>
-                                <td class="bord">
-                                    <span class="correct">Has acertado</span>
-                                </td>
-                            <% } else if (friend.guessed === 1) { %>
-                                <td>
-                                    <span class="wrong">Has fallado</span>
-                                </td>
-                            <% } else { %>
-                                <td class="bord">
-                                    <input class="guess_button" type="submit" value="Adivinar">
-                                </td>
-                            <% } %>-->
+                           
                         </tr>
                     <% }); %>
                 </table>

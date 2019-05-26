@@ -92,7 +92,7 @@ class DAOQuestions {
             if (err) {
                 callback("Error de conexion a la BBDD", undefined);
             }
-            connection.query("SELECT question_ID, text, Aid, text FROM questions JOIN answers ON question_ID=Qid WHERE id = ?",
+            connection.query("SELECT id, question_text, Aid, text FROM questions JOIN answers ON id=Qid WHERE id = ?",
             [id], (err, rows)=>{
                 if (err) {
                     callback("Error de acceso a la BBDD", undefined);
@@ -195,7 +195,7 @@ class DAOQuestions {
             if(err){
                 callback("Error de conexión a la BBDD", undefined);  
             }
-            connection.query("SELECT question_ID, text FROM questions ORDER BY rand() LIMIT 5",
+            connection.query("SELECT id, question_text FROM questions ORDER BY rand() LIMIT 5",
             (err, rows)=>{
                 connection.release();
                 if(err){
@@ -205,7 +205,7 @@ class DAOQuestions {
                     let questions = [];
                     if (rows.length > 0){
                         rows.forEach( p => {
-                            questions.push({text:p.text, id:p.question_ID});
+                            questions.push({text:p.question_text, id:p.id});
                         });
                         
                     }

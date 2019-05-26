@@ -138,8 +138,8 @@ app.get("/questions", (request, response) => {
 
 app.get("/question", (request, response) => {
     daoquestions.getQuestionData(request.query.id, (err, question)=>{
-        daoquestions.isAnswered(request.query.id, request.session.currentUser.email, (err, answered) => {
-            daousers.getUserFriends(request.session.currentUser.email, (err, friends) => {
+        daoquestions.isAnswered(request.query.id, request.session.currentUser, (err, answered) => {
+            daousers.getUserFriends(request.session.currentUser, (err, friends) => {
                 if (!err) {
                     let answers = [];
                 
@@ -148,6 +148,33 @@ app.get("/question", (request, response) => {
             });
         });      
     });
+})
+
+app.post("/answerQuestion", (request, response) => {
+    let answer =  {
+        email: request.session.currentUser,
+        Qid: request.body.qid,
+        text: request.body.answer
+    }
+    daoquestions.answerQuestion(answer, (err, result) => {
+        if (err) {
+            response.redirect("error");
+        }
+        if (result) {
+            response.redirect("questions");
+        }
+    });
+})
+
+app.get("/answerquestion", (request, response) => {
+    if (request.session.currentUser === undefined) {
+        response.redirect("login");
+    }
+    else {
+        daoquestions.getQuestionData(request.query.id, (err, data) =>{
+            response.render("answerquestion", {user: request.session.currentUser, data: data});
+        });
+    }
 })
 
 

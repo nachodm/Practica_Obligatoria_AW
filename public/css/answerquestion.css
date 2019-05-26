@@ -100,39 +100,65 @@ p{
   color: whitesmoke;
 }
 
-#answq {
-  display: inline-block;
-  background-color: whitesmoke;
-  color: #084270;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 30%;
-  transition: 0.3s;
-  text-decoration: none;
-  border-radius: 5px;
+
+.question{
+    padding: 50px;
+    background-color: whitesmoke;
+    border: solid 2px #333333;
+    color: black;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
-table {
-  background-color:hsla(0, 100%, 90%, 0.1);
-  border-radius: 10px;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  width: 80%;
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
+/* Bordered form */
+form {
+    border: 3px solid #f1f1f1;
 }
 
-td > * {
-  vertical-align : middle;
+/* Full-width inputs */
+input[type=text], input[type=password], input[type=date], input[type=file] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-.friendsView {
-  text-decoration: none;
-  color: whitesmoke;
-  padding: 20px;
-  margin-bottom: 20px;
+input[type=radio] {
+    margin-left: 5%;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #084270;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+footer {
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 70px;
+    position: static;
+    bottom: 0;
+    background: #333333;
+    width:100%;
+    text-align: center;
+    color: whitesmoke;
 }
