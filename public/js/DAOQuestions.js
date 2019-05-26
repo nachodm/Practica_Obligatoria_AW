@@ -143,7 +143,7 @@ class DAOQuestions {
             (err, rows) => {
                 if (err) {
                     callback("Error de acceso a la BBDD", undefined);
-                }
+                }  
                 else {
                     if (rows.length > 0) {
                         connection.query("SELECT result FROM users_guesses WHERE email = ? AND friendEmail = ? AND Qid = ?", 
