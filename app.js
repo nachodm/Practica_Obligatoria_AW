@@ -140,12 +140,12 @@ app.get("/question", (request, response) => {
     daoquestions.getQuestionData(request.query.id, (err, question)=>{
         daoquestions.isAnswered(request.query.id, request.session.currentUser, (err, answered) => {
             daousers.getUserFriends(request.session.currentUser, (err, friends) => {
-                if (!err) {
-                    let answers = [];
-                
-                    response.render("question", {user: request.session.currentUser, question: question, answered:answered, friends: friends});
-                }
-            });
+                    daoquestions.checkFriendAnswer(request.query.id, request.session.currentUser, friends, (err, fanswers) => {
+                        response.render("question", {user: request.session.currentUser, question: question, answered:answered, fanswers: fanswers});
+
+                    });
+
+            })
         });      
     });
 })

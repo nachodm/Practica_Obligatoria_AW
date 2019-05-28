@@ -132,43 +132,37 @@ class DAOQuestions {
     }
 
 
-    checkFriendAnswer(Qid, email, friend, callback){
-        this.pool.getConnection((err, connection) => {
+    checkFriendAnswer(Qid, email, friends, callback){
+        this.pool.getConnection((err, conn) => {
             if (err) {
                 callback("Error de conexion a la BBDD", undefined);
             }
-            let answer;
-            connection.query("SELECT text FROM ownanswers WHERE Qid = ? AND email = ?", 
-            [Qid, friend.email],
-            (err, rows) => {
-                if (err) {
-                    callback("Error de acceso a la BBDD", undefined);
-                }  
-                else {
-                    if (rows.length > 0) {
-                        connection.query("SELECT result FROM users_guesses WHERE email = ? AND friendEmail = ? AND Qid = ?", 
-                        [email, friend.email, Qid],
-                        (err, rows) => {
-                            connection.release();
-                            if (err) {
-                                callback("Error de acceso a la BBDD", undefined);
-                            }
-                            else {
-                                let guessed = null;
-                                if (rows.length > 0) {
-                                    guessed = rows[0].result;
-                                }
-                                answer = {
-                                    name: friend.name, 
-                                    email: friend.email, 
-                                    guessed: guessed 
-                                }
-                                callback(null, answer);
-                             }
-                        });
-                    }
+            
+            conn.query("SELECT DISTINCT name, ownanswers.email, status, Qid, text FROM users NATURAL JOIN friends NATURAL JOIN ownanswers where Qid = ?  and friends.status = 2", [Qid], (err, rows)=>{
+                if(err){
+                    callback(err, undefined);
                 }
-            });
+                if(rows.length >  0 && friends.length > 0){
+                    let fanswers = [];
+                        rows.forEach(p=>{
+                            var i = 0;
+                            var encontrado = false;
+                            while (!encontrado && i < friends.length){
+                                if (p.email == email) encontrado = true;
+                                else if(p.email == friends[i].email){
+                                    fanswers.push(p.name);
+                                    encontrado = true;
+                                }
+                                ++i;
+                            }
+                        })
+                        callback(null, fanswers);
+                    }
+                else{
+                    callback(null, null);
+                }
+            })
+            
         });
     }
 

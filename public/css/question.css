@@ -120,14 +120,18 @@ table {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  width: 80%;
+  width: 90%;
   text-align: left;
   margin-left: auto;
   margin-right: auto;
 }
 
+td{
+  height: 100px;
+}
 td > * {
   vertical-align : middle;
+ 
 }
 
 .friendsView {
@@ -135,4 +139,22 @@ td > * {
   color: whitesmoke;
   padding: 20px;
   margin-bottom: 20px;
+}
+
+.guess_button {
+  border: 1px solid #ccc;
+  background-color: whitesmoke;
+  color: #084270;
+  padding: 14px 20px;
+  margin-left: 60%;
+  border: none;
+  cursor: pointer;
+  width: 90%;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.guess_button:hover {
+background-color: beige;
+opacity: 0.8;
 }
