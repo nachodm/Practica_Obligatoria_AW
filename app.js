@@ -74,8 +74,6 @@ app.get("/newUser", (request, response) => {
 app.get("/friends", (request, response) => {
     daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
         daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
-            console.log(friends);
-            console.log(friendsRequest);
             response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends});
         });
     })
@@ -177,7 +175,7 @@ app.get("/answerquestion", (request, response) => {
     }
     else {
         daoquestions.getQuestionData(request.query.id, (err, data) =>{
-            response.render("answerquestion", {user: request.session.currentUser, data: data});
+            response.render("answerquestion", {user: request.session.currentUser, data: data, guessing: false});
         });
     }
 })
@@ -234,6 +232,11 @@ app.post("/sendFriendRequest", (request, response) => {
         }
     });
 });
+
+app.post("/guessquestion", (request, response)=>{
+    
+    response.render("questions/::id");
+})
 
 app.post("/signUp", (request, response) => {
     var userData = {

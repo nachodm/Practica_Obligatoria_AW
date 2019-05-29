@@ -162,3 +162,7 @@ footer {
     text-align: center;
     color: whitesmoke;
 }
+
+li{
+  list-style-type: none
+}

@@ -18,7 +18,7 @@
         <div class="navbar">
             <a href="profile">Perfil</a>
             <a href="friends">Amigos</a>
-            <a class="active" href="#">Preguntas</a>
+            <a class="active" href="questions">Preguntas</a>
             <a href="logout">Desconectar</a>
             <div> 50 pts</div>
         </div>
@@ -39,14 +39,20 @@
         <p>Los siguientes amigos han contestado a esta pregunta:</p>
         <table>
             <% fanswers.forEach(friend => { %>
+            <form method="POST" action="guessquestion">
             <tr>
                 <td colspan="4">
                     <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                    <a class="friendsView" href="answerquestion?id=<%= question.id%>"> <%= friend %>   </a>
-                        <a class="guess_button">Adivinar</a>
+                    <input type="hidden" name="guessing" value="true">
+                    <input type="hidden" name="qid" value="<%=question.id%>">
+                    <input type="hidden" name="femail" value="<%= friend.email %>">
+                    <p class="friendsView"> <%= friend %>  </p>
+                        <input type="submit" class="guess_button">Adivinar</a>
                 </td>
-            <% }) %>
             </tr>
+        </form>
+            <% }) %>
+            
         </table>
         <% } %>
     </div>
