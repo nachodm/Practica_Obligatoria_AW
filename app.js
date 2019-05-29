@@ -58,7 +58,12 @@ app.get("/", (request, response) => {
 
 app.get("/profile", (request, response) => {
 
-    response.render("profile", { data: request.session.userData });
+    if (request.query.email != undefined)
+        daousers.getInfoUser(request.query.email, (err, fdata) =>{
+            response.render("profile", { data: request.session.userData, fdata: fdata });
+        })
+    else  response.render("profile", { data: request.session.userData, fdata: null });
+
 
 })
 

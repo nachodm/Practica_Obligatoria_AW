@@ -16,7 +16,7 @@
                 FACEPLUFF
             </div> 
             <div class="navbar">           
-                <a class="active" href="#">Perfil</a>        
+                <a class="active" href="profile?email=<%=data.email%>">Perfil</a>        
                 <a href="friends">Amigos</a>        
                 <a href="questions">Preguntas</a>        
                 <a href="#">Desconectar</a>
@@ -26,9 +26,31 @@
             </div>
         </header>
             <div id="content">
+                <% if (fdata) { %>
+                
+                    <h1> Perfil de <%=fdata.name %></h1>
+                    <table id="displayProfile">
+                           
+                            <tr>
+                                <td rowspan="4" colspan="4">    
+                                    <img class="icon" src="img/cara.png" alt="profile picture"/></td>
+                                <td class="data"><%= fdata.name %></td>
+                            </tr>
+                            <tr>
+                                <td class="data"><%= fdata.birthday %></td>
+                            </tr>
+                            <tr>
+                                <td class="data"><%= fdata.gender %></td>
+                            </tr>
+                            <tr>
+                                <td class="data"><%= fdata.points %></td>
+                            </tr>
+                        </table>
+                
+                <%} else {%>
+                
                     <h1>Tu perfil</h1>
                     <table id="displayProfile">
-                        <% if (data) { %>
                         <tr>
                             <td rowspan="4" colspan="4">    
                                 <img class="icon" src="img/cara.png" alt="profile picture"/></td>
@@ -43,8 +65,9 @@
                         <tr>
                             <td class="data"><%= data.points %></td>
                         </tr>
-                        <% } %>
+                        
                     </table>
+                <% } %>
                     <input class="profile_button" type="submit" value="Modificar Usuario">
             </div>
     </body>

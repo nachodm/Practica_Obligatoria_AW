@@ -61,14 +61,14 @@
             <h2 class="mytext">Mis amigos</h2>
     
             <% if(friends) { %>
-                <table>
+                <table class="tablefriends">
                     <% friends.forEach( p =>{ %>
                     <tr>
                         <td>
                             <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
                                 href="#"> <%= p.name %></a>
                         <td class="bord">
-                            <input class="profile_button" type="submit" value="Visitar">
+                            <a class="profile_button visitar" href="/profile?email=<%= p.email %>" value="Visitar"> Visitar </a>    
                         </td>
                     </tr>
                     <% }) %>
