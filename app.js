@@ -52,8 +52,12 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "public/views"));
 
 app.get("/", (request, response) => {
-    response.render("login");
+    response.render("login", {errors: request.session.loginErr});
 
+})
+
+app.get("/login", (request, response)=>{
+    response.redirect("/");
 })
 
 app.get("/profile", (request, response) => {
@@ -68,7 +72,7 @@ app.get("/profile", (request, response) => {
 })
 
 app.get("/newUser", (request, response) => {
-    response.render("newUser");
+    response.render("newUser" , {errors: request.session.newUserErr});
 })
 
 app.get("/friends", (request, response) => {
@@ -183,24 +187,37 @@ app.get("/answerquestion", (request, response) => {
 
 app.post("/isUserCorrect", (request, response) => {
 
-    daousers.isUserCorrect(request.body.email, request.body.psw, (err) => {
+    request.checkBody("email", "El email no puede estar vacio").notEmpty();
+    request.checkBody("email", "Email no válido").isEmail();
+    request.checkBody("psw","La contraseña no puede estar vacía").notEmpty();
+    request.getValidationResult().then(function(result){
+        if(!result.isEmpty()){
+            request.session.loginErr = result.array();
+            response.redirect("login");
+        }
+        else{
+            daousers.isUserCorrect(request.body.email, request.body.psw, (err) => {
 
-        if (err)
-            console.log(err);
-        else {
-            request.session.currentUser = request.body.email;
-            daousers.getInfoUser(request.body.email, (err, result) => {
-                if (err) {
+                if (err)
                     console.log(err);
-                }
                 else {
-                    request.session.userData = result;
-                    response.redirect("profile");
+                    request.session.currentUser = request.body.email;
+                    daousers.getInfoUser(request.body.email, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            request.session.userData = result;
+                            response.redirect("profile");
+                        }
+                    })
                 }
+        
             })
         }
-
     })
+
+    
 })
 
 app.post("/search", (request, response)=>{
@@ -239,19 +256,33 @@ app.post("/guessquestion", (request, response)=>{
 })
 
 app.post("/signUp", (request, response) => {
-    var userData = {
-        email: request.body.email,
-        password: request.body.psw,
-        name: request.body.name,
-        gender: request.body.gender,
-        birthday: request.body.birthday,
-        profile_picture: request.body.profile_picture
-    }
-    daousers.newUser(userData, (err) => {
-        if (err) console.log(err);
-        else {
-            request.session.userData = userData;
-            response.redirect("profile");
+
+    request.checkBody("email", "Direccion de correo no válida").isEmail();
+    request.checkBody("name", "El nombre no puede estar en blanco").notEmpty();
+    request.checkBody("birthday", "La fecha no es válida").isBefore();
+    request.checkBody("password","La contraseña no puede estar en blanco").notEmpty();
+
+    request.getValidationResult().then(function(result){
+        if(!result.isEmpty()){
+            request.session.newUserErr = result.array();
+            response.redirect("newUser");
+        }
+        else{
+            var userData = {
+                email: request.body.email,
+                password: request.body.psw,
+                name: request.body.name,
+                gender: request.body.gender,
+                birthday: request.body.birthday,
+                profile_picture: request.body.profile_picture
+            }
+            daousers.newUser(userData, (err) => {
+                if (err) console.log(err);
+                else {
+                    request.session.userData = userData;
+                    response.redirect("profile");
+                }
+            })
         }
     })
 })

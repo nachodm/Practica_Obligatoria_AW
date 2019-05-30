@@ -24,16 +24,25 @@
         <div class="body2">
             <div id="title"><strong>Nuevo Usuario</strong></div>
             <div class ="login">
+                <% if (errors) { %>
+                    
+                
+                <div class="errors">
+                        <% errors.forEach(p=>{ %>
+                            <li><%= p.msg %></li>
+                       <% }) %>
+                </div>
+                <%} %>
                 <form id="loginform" method="POST" action="/signUp">
                     <div class="container">
                         <label for="email"><b>Email</b></label>
-                        <input type="text" placeholder="Introduce el email" name="email" required>
+                        <input type="text" placeholder="Introduce el email" name="email" >
                     
                         <label for="psw"><b>Contraseña</b></label>
-                        <input type="password" placeholder="Introduce la contraseña" name="psw" required>
+                        <input type="password" placeholder="Introduce la contraseña" name="psw" >
                     
                         <label for="name"><b>Nombre completo</b></label>
-                        <input type="text" placeholder="Introduce nombre y apellidos" name="name" required>
+                        <input type="text" placeholder="Introduce nombre y apellidos" name="name" >
                         <br>
                         <br>
                         <label for="gender"><b>Sexo</b></label>

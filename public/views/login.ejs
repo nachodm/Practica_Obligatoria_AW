@@ -19,13 +19,18 @@
     <div class="body2">
         <div id="title"><strong>Entrar</strong></div>
         <div class="login">
+            <% if (errors) { %>
+                <% errors.forEach(p=>{ %>
+                    <li> <%= p.msg %></li>
+                <% }) %>
+            <% } %>
             <form id="loginform" method="POST" action="/isUserCorrect">
                 <div class="container">
                     <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Introduce el email" name="email" required>
+                    <input type="text" placeholder="Introduce el email" name="email">
 
                     <label for="psw"><b>Contraseña</b></label>
-                    <input type="password" placeholder="Introduce la contraseña" name="psw" required>
+                    <input type="password" placeholder="Introduce la contraseña" name="psw">
 
                     <button type="submit">Login</button>
                 </div>
