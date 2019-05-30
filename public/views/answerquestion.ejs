@@ -24,12 +24,8 @@
             <% if (data) %>
             <h2><%= data.question_text %></h2>
                 <ul>
-                    <% if (guessing != true) { %>
+                    
                     <form method="POST" action="/answerQuestion">
-                    <% } else{ %>
-                    ESTAS ADIVINANDO
-                    <form method="POST" action="/guessQuestion">
-                    <%} %>
                         <input type="hidden" name="answer" value="<%=data.answers[0].text%>">
                         <input name="qid" type="hidden" value="<%= data.id %>">
                         <li class="questions answ"><button type="submit">Responder</button> <%= data.answers[0].text %></li>

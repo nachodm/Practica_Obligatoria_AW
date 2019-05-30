@@ -43,11 +43,8 @@
             <tr>
                 <td colspan="4">
                     <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                    <input type="hidden" name="guessing" value="true">
-                    <input type="hidden" name="qid" value="<%=question.id%>">
-                    <input type="hidden" name="femail" value="<%= friend.email %>">
-                    <p class="friendsView"> <%= friend %>  </p>
-                        <input type="submit" class="guess_button">Adivinar</a>
+                    <a class="friendsView"> <%= friend %>  </a>
+                        <a class="profile_button">Adivinar</a>
                 </td>
             </tr>
         </form>

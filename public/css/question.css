@@ -141,7 +141,7 @@ td > * {
   margin-bottom: 20px;
 }
 
-.guess_button {
+.profile_button {
   border: 1px solid #ccc;
   background-color: whitesmoke;
   color: #084270;
@@ -154,7 +154,7 @@ td > * {
   border-radius: 5px;
 }
 
-.guess_button:hover {
+.profile_button:hover {
 background-color: beige;
 opacity: 0.8;
 }

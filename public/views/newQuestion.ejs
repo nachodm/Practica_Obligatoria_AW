@@ -25,16 +25,22 @@
         <div class="content">
             <div id="title"><strong>Nueva Pregunta</strong></div>
             <div class ="question">
+                <% if (errors) { %>
+                   <% errors.forEach(p =>{ %>
+                        <li><%= p.msg %></li>
+                   <% }) %>
+                <% } %>
+                     
                 <form id="quesinf" method="POST" action="/createnewquestion">
                     <div class="container">
                         <label for="question"><b>Pregunta</b></label>
-                        <input type="text" placeholder="Introduce la Pregunta" name="question_text" required>
+                        <input type="text" placeholder="Introduce la Pregunta" name="question_text">
                             
                         <label for="answer1"><b>Primera respuesta</b></label>
-                        <input type="text" placeholder="Introduce la respuesta" name="option_1" required>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_1">
                             
                         <label for="answer2"><b>Segunda respuesta</b></label>
-                        <input type="text" placeholder="Introduce la respuesta" name="option_2" required>
+                        <input type="text" placeholder="Introduce la respuesta" name="option_2">
         
                         <label for="answer3"><b>Tercera respuesta</b></label>
                         <input type="text" placeholder="Introduce la respuesta" name="option_3">
@@ -45,7 +51,7 @@
                         <button type="submit" >Crear Pregunta</button>
                     </div>
                 </form> 
-            </div>
+              
         </div>
     </body>
 </html>
