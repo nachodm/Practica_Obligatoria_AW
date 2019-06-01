@@ -52,16 +52,38 @@ class DAOUsers {
     }
 
     /**
+     * Modifica en la base de datos la información del usuario pasado por parámetro 
+     * @param {object} user Usuario a actualizar en la base de datos.
+     * @param {function} callback Función que devolverá el objeto error o el booleano indicando la correcta actualización del usuario.
+     */
+    modifyUser(user, callback){
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback("Error de conexion a la BBDD", undefined);
+            }
+            connection.query("UPDATE users SET email = ?, password = ?, name = ?, gender = ?, birthdate = ?, profile_picture = ? WHERE email = ?",
+            [user.email, user.password, user.name, user.gender, user.birthdate, user.profile_picture, user.email],
+            (err) => {
+                connection.release();
+                if (err) {callback(err, undefined);}
+                else {
+                    callback(null, true);
+                }
+            })
+        });
+    }
+
+    /**
      * 
      * @param {*} email 
      * @param {*} callback 
      */
     getInfoUser(email, callback) {
         this.pool.getConnection((err, conn) => {
-            if (err) callback("Error de acceso a la BBDD");
+            if (err) callback("Error de acceso a la BBDD", null);
             else {
                 conn.query("SELECT * FROM users WHERE email = ?", [email], (err, row) => {
-                    if (err) callback("Error de conexion con la BBDD", false);
+                    if (err) callback("Error de conexión con la BBDD", null);
                     else if (row.length > 0) {
                         conn.release();
                         var datos = {
@@ -72,7 +94,7 @@ class DAOUsers {
                             profile_picture: row[0].profile_picture,
                             points: row[0].points
                         }
-                        callback(false, datos);
+                        callback(null, datos);
                     }
                 })
             }

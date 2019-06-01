@@ -217,6 +217,14 @@ app.get("/answerquestion", (request, response) => {
     }
 })
 
+app.get("/modify", (request, response) => {
+    if (request.session.currrentUser === undefined) {
+        response.redirect("login");
+    }
+    else {
+        response.render("modify", {user: request.session.currentUser})
+    }
+})
 
 app.post("/isUserCorrect", (request, response) => {
     request.checkBody("email", "El email no puede estar vacio").notEmpty();
@@ -245,7 +253,40 @@ app.post("/isUserCorrect", (request, response) => {
             })
         }
     })
-})
+});
+
+
+app.post("/modifyUser", multerFactory.single("picture"), (request, response) => {
+    let file = "";
+    if (request.file) {
+        file = request.file.filename;
+    }
+    let user = {
+        email: request.body.email,
+        password: request.body.psw,
+        name: request.body.name,
+        gender: request.body.gender,
+        birthdate: request.body.bdate,
+        profile_picture: file,
+        points: request.session.loggedUser.points
+    }
+
+    users.modifyUser(user, (err, result) => {
+        if (err) {
+            response.status(500).send('Error 500: Internal server error');
+        }
+        if (result) {
+            /*if (user.birthdate !== undefined) {
+                users.calculateAge(user.birthdate, (age) => {
+                    if(isNaN(age)) {user.birthdate = -1;}
+                    else {user.birthdate = age;}
+                })
+            }*/
+            request.session.currentUser = user;
+            response.redirect("profile");
+        }
+    });
+});
 
 app.post("/search", (request, response)=>{
     daousers.search(request.body.name, request.session.currentUser, (err, friends)=>{
