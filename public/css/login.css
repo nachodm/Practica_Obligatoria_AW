@@ -1,23 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Margarine');
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
-
 *{
     margin: 0;
     top: 0;
 }
 
 .header{
-  
     font-family: 'Margarine', cursive !important;
     text-align: center;
     background-color: whitesmoke;
 }
 
 .sup{
-    height: 130px;
-    font-size: 100px;
-    -webkit-text-stroke-width: 2px;
+    height: 120px;
+    font-size: 90px;
+    -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: yellow;
 }
 
@@ -45,16 +43,14 @@
     opacity: 0.95;
 }
   
+/* Style the current/active link */
 .navbar a.active {
-    background-color: rgb(212, 212, 212);
-}
+    color: whitesmoke;
+    background-color: #084270;
+  }
 
 .boxes{
     height: 58px;
-}
-
-p{
-    margin-top: 15px;
 }
 
 body{
@@ -63,11 +59,10 @@ body{
 }
 
 .body2{
-    min-height: 80vh;
+    min-height: 60vh;
     width: 60vw;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
 }
 
 #title{
@@ -83,7 +78,6 @@ body{
     border: solid 2px #333333;
     color: black;
 }
-
 
 form {
     border: 3px solid #f1f1f1;
@@ -128,4 +122,24 @@ footer {
     width:100%;
     text-align: center;
     color: whitesmoke;
- }
+}
+
+.errors {
+    margin: 4px 0px;
+    padding: 4px 5px;
+    border: solid 1px #DC3545;
+    list-style: none;
+    background-color: #F8D7DA;
+}
+
+.errors li {
+    color: #721C24;
+    padding: 2px;
+}
+
+footer {
+    padding: 18px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

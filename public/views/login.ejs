@@ -1,44 +1,50 @@
 <!DOCTYPE html>
-<html lang="es">
-<header>
-    <title>Facebluff</title>
-    <meta charset="utf-8" />
-    <link href="../css/login.css" rel="stylesheet">
-</header>
+    <html lang="es">
+    <head>
+        <title>Facebluff</title>
+        <meta charset="utf-8" />
 
-<body>
-    <div class="header">
-        <div class="sup">
-            FACEPLUFF
-        </div>
-        <div class="navbar">
-            <a class="active" href="#">Entrar</a>
-            <a href="newUser" target="_self">Nuevo Usuario</a>
-        </div>
-    </div>
-    <div class="body2">
-        <div id="title"><strong>Entrar</strong></div>
-        <div class="login">
-            <% if (errors) { %>
-                <% errors.forEach(p=>{ %>
-                    <li> <%= p.msg %></li>
-                <% }) %>
-            <% } %>
-            <form id="loginform" method="POST" action="/isUserCorrect">
-                <div class="container">
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Introduce el email" name="email">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
-                    <label for="psw"><b>Contraseña</b></label>
-                    <input type="password" placeholder="Introduce la contraseña" name="psw">
+        <link href="../css/login.css" rel="stylesheet">
+    </head>
 
-                    <button type="submit">Login</button>
-                </div>
-            </form>
+    <body>
+        <div class="header">
+            <div class="sup">
+                FACEBLUFF
+            </div>
+            <div class="navbar">
+                <a class="active" href="#">Entrar</a>
+                <a href="newUser" target="_self">Nuevo Usuario</a>
+            </div>
         </div>
-        
-    </div>
-    <footer>
+        <div class="body2">
+            <div id="title"><strong>Entrar</strong></div>
+            <div class="login">
+                <% if (errors) { %>
+                    <ul class="errors">
+                        <% errors.forEach(p=>{ %>
+                            <li> <%= p.msg %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+                <form id="loginform" method="POST" action="/isUserCorrect">
+                    <div class="container">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Introduce el email" name="email" required>
+
+                        <label for="psw"><b>Contraseña</b></label>
+                        <input type="password" placeholder="Introduce la contraseña" name="psw" required>
+
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <footer>
             <p>
                 Ignacio Domingo
             </p>
@@ -46,6 +52,6 @@
                 Alberto Fernández-Baíllo
             </p>
         </footer>
-</body>
+    </body>
 
 </html>

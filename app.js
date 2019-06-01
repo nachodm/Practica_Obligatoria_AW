@@ -8,8 +8,8 @@ const expressValidator = require("express-validator");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const mysqlSession = require("express-mysql-session");
-const DAOUsers = require("./public/js/DAOUsers");
-const DAOQuestions = require("./public/js/DAOQuestions");
+const DAOUsers = require("./DAOs/DAOUsers");
+const DAOQuestions = require("./DAOs/DAOQuestions");
 const multer = require("multer");   
 
 const multerFactory = multer();
@@ -47,40 +47,58 @@ const ficherosEstaticos = path.join(__dirname, "public");
 
 app.use(express.static(ficherosEstaticos));
 app.set("view engine", "ejs");
-
-
 app.set("views", path.join(__dirname, "public/views"));
 
 app.get("/", (request, response) => {
-    response.render("login", {errors: request.session.loginErr});
-
+    response.redirect("login");
 })
 
 app.get("/login", (request, response)=>{
-    response.redirect("/");
+    if (request.session.currentUser !== undefined) {
+        response.redirect("profile");
+    }
+    else {
+        let msg = request.session.loginErr;
+        delete request.session.loginErr;
+        response.render("login", {errors: msg});
+    }
 })
 
 app.get("/profile", (request, response) => {
-
-    if (request.query.email != undefined)
-        daousers.getInfoUser(request.query.email, (err, fdata) =>{
-            response.render("profile", { data: request.session.userData, fdata: fdata });
+    if (request.session.currentUser === undefined) {
+        response.redirect("login");
+    }
+    else {
+        if (request.query.email != undefined)
+            daousers.getInfoUser(request.query.email, (err, fdata) =>{
+                response.render("profile", { data: request.session.userData, fdata: fdata });
         })
-    else  response.render("profile", { data: request.session.userData, fdata: null });
-
-
+        else  response.render("profile", {data: request.session.userData, fdata: null});
+    }
 })
 
 app.get("/newUser", (request, response) => {
-    response.render("newUser" , {errors: request.session.newUserErr});
+    if (request.session.currentUser !== undefined) {
+        response.redirect("profile");
+    }
+    else {
+        let msg = request.session.newUserErr;
+        delete request.session.newUserErr;
+        response.render("newUser" , {errors: msg});
+    }
 })
 
 app.get("/friends", (request, response) => {
-    daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
-        daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
-            response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends});
-        });
-    })
+    if (request.session.currentUser === undefined) {
+        response.redirect("login");
+    }
+    else {
+        daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
+            daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
+                response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends});
+            });
+        })
+    }
 })
 
 app.get("/newquestion", (request, response) => {
@@ -132,7 +150,7 @@ app.post("/createnewquestion", (request, response) => {
                                                 if ((!err) && (numbanswers >=4)) {
                                                     daoquestions.insertAnswer(Qid, 4, request.body.option_4, (err) => {
                                                         if (err) {
-                                                            response.write(err);
+                                                            response.status(500).send('Error 500: Internal server error');
                                                         }
                                                     });
                                                 }
@@ -148,9 +166,6 @@ app.post("/createnewquestion", (request, response) => {
             });
         }
     })
-
-
-    
 });
 app.get("/questions", (request, response) => {
     if (request.session.currentUser === undefined) {
@@ -169,9 +184,7 @@ app.get("/question", (request, response) => {
             daousers.getUserFriends(request.session.currentUser, (err, friends) => {
                     daoquestions.checkFriendAnswer(request.query.id, request.session.currentUser, friends, (err, fanswers) => {
                         response.render("question", {user: request.session.currentUser, question: question, answered:answered, fanswers: fanswers});
-
                     });
-
             })
         });      
     });
@@ -185,7 +198,7 @@ app.post("/answerQuestion", (request, response) => {
     }
     daoquestions.answerQuestion(answer, (err, result) => {
         if (err) {
-            response.redirect("error");
+            response.status(500).send('Error 500: Internal server error');
         }
         if (result) {
             response.redirect("questions");
@@ -206,7 +219,6 @@ app.get("/answerquestion", (request, response) => {
 
 
 app.post("/isUserCorrect", (request, response) => {
-
     request.checkBody("email", "El email no puede estar vacio").notEmpty();
     request.checkBody("email", "Email no válido").isEmail();
     request.checkBody("psw","La contraseña no puede estar vacía").notEmpty();
@@ -216,28 +228,23 @@ app.post("/isUserCorrect", (request, response) => {
             response.redirect("login");
         }
         else{
-            daousers.isUserCorrect(request.body.email, request.body.psw, (err) => {
-
+            daousers.isUserCorrect(request.body.email, request.body.psw, (err, success, user) => {
                 if (err)
-                    console.log(err);
+                    response.status(500).send('Error 500: Internal server error');
                 else {
-                    request.session.currentUser = request.body.email;
-                    daousers.getInfoUser(request.body.email, (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            request.session.userData = result;
-                            response.redirect("profile");
-                        }
-                    })
+                    if (success) {
+                        request.session.currentUser = user.email;
+                        request.session.userData = user;
+                        response.redirect("profile");
+                    }
+                    else {
+                        request.session.loginErr = "Email o contraseña incorrecta."
+                        response.redirect("login");
+                    }
                 }
-        
             })
         }
     })
-
-    
 })
 
 app.post("/search", (request, response)=>{
@@ -276,33 +283,41 @@ app.post("/guessquestion", (request, response)=>{
 })
 
 app.post("/signUp", (request, response) => {
-
     request.checkBody("email", "Direccion de correo no válida").isEmail();
-    request.checkBody("name", "El nombre no puede estar en blanco").notEmpty();
-    request.checkBody("birthday", "La fecha no es válida").isBefore();
-    request.checkBody("password","La contraseña no puede estar en blanco").notEmpty();
+    request.checkBody("name", "Nombre de usuario no válido").matches(/^[a-zA-Z0-9 ]+$/i);
+    if(request.body.bdate !== ""){
+        request.checkBody("bdate", "Fecha de nacimiento no válida").isBefore();
+    }
 
     request.getValidationResult().then(function(result){
-        if(!result.isEmpty()){
-            request.session.newUserErr = result.array();
-            response.redirect("newUser");
-        }
-        else{
+        if(result.isEmpty()){
+            let file = "";
+            if (request.file) {
+                file = request.file.filename;
+            }
             var userData = {
                 email: request.body.email,
                 password: request.body.psw,
                 name: request.body.name,
                 gender: request.body.gender,
-                birthday: request.body.birthday,
-                profile_picture: request.body.profile_picture
+                birthday: request.body.bdate,
+                profile_picture: file, 
+                points: 0
             }
             daousers.newUser(userData, (err) => {
-                if (err) console.log(err);
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
                 else {
+                    request.session.currentUser = userData.email;
                     request.session.userData = userData;
                     response.redirect("profile");
                 }
             })
+        }
+        else{
+            request.session.newUserErr = result.array();
+            response.redirect("newUser");
         }
     })
 })
@@ -319,4 +334,21 @@ app.listen(config.port, function (err) {
     } else {
         console.log(`Servidor escuchando en puerto ${config.port}.`);
     }
+}); 
+
+
+app.use((request, response, next) => {     
+    response.status(404);     
+    response.render("error", { url: request.url }); 
+}); 
+
+app.use((request, response, next) => {
+    response.setFlash = (msg) => {
+        request.session.flashMsg = msg;
+    };          
+    response.locals.getAndClearFlash = () => {
+        let msg = request.session.flashMsg;         
+        delete request.session.flashMsg;         
+        return msg;     
+    }; 
 });

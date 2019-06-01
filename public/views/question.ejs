@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <title>Pregunta - Facebluff</title>
-    <meta name="description" content="Facebluff">
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="../css/question.css">
-</head>
+    <head>
+        <title>Pregunta - Facebluff</title>
+        <meta name="description" content="Facebluff">
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link type="text/css" rel="stylesheet" href="../css/question.css">
+    </head>
 
-<body>
-    <header>
-        <div class="sup">
-            FACEPLUFF
+    <body>
+        <header>
+            <div class="sup">
+                FACEPLUFF
+            </div>
+            <div class="navbar">
+                <a href="profile">Perfil</a>
+                <a href="friends">Amigos</a>
+                <a class="active" href="questions">Preguntas</a>
+                <a href="logout">Desconectar</a>
+                <div> 50 pts</div>
+            </div>
+        </header>
+        <div id="content">
+            <h1><%= question.question_text %></h1>
+            <% if (answered) {%>
+            <p> Ya has respondido a esta pregunta</p>
+            <% } else { %>
+            <p> No has respondido a esta pregunta</p>
+
+            <a id="answq" href="/answerquestion?id=<%= question.id%>">Contestar Pregunta</a>
+            <% } %>
+
+            <% if (!fanswers) { %>
+            <p>Ninguno de tus amigos ha contestado aún a esta pregunta:</p>
+            <% } else { %>
+            <p>Los siguientes amigos han contestado a esta pregunta:</p>
+            <table>
+                <% fanswers.forEach(friend => { %>
+                <form method="POST" action="guessquestion">
+                <tr>
+                    <td colspan="4">
+                        <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                        <a class="friendsView"> <%= friend %>  </a>
+                            <a class="profile_button">Adivinar</a>
+                    </td>
+                </tr>
+            </form>
+                <% }) %>
+                
+            </table>
+            <% } %>
         </div>
-        <div class="navbar">
-            <a href="profile">Perfil</a>
-            <a href="friends">Amigos</a>
-            <a class="active" href="questions">Preguntas</a>
-            <a href="logout">Desconectar</a>
-            <div> 50 pts</div>
-        </div>
-    </header>
-    <div id="content">
-        <h1><%= question.question_text %></h1>
-        <% if (answered) {%>
-        <p> Ya has respondido a esta pregunta</p>
-        <% } else { %>
-        <p> No has respondido a esta pregunta</p>
-
-        <a id="answq" href="/answerquestion?id=<%= question.id%>">Contestar Pregunta</a>
-        <% } %>
-
-        <% if (!fanswers) { %>
-        <p>Ninguno de tus amigos ha contestado aún a esta pregunta:</p>
-        <% } else { %>
-        <p>Los siguientes amigos han contestado a esta pregunta:</p>
-        <table>
-            <% fanswers.forEach(friend => { %>
-            <form method="POST" action="guessquestion">
-            <tr>
-                <td colspan="4">
-                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                    <a class="friendsView"> <%= friend %>  </a>
-                        <a class="profile_button">Adivinar</a>
-                </td>
-            </tr>
-        </form>
-            <% }) %>
-            
-        </table>
-        <% } %>
-    </div>
-</body>
-
+    </body>
 </html>
