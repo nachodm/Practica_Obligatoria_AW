@@ -282,7 +282,7 @@ app.post("/guessquestion", (request, response)=>{
     response.render("questions/::id");
 })
 
-app.post("/signUp", (request, response) => {
+app.post("/signUp", multerFactory.single("picture"),(request, response) => {
     request.checkBody("email", "Direccion de correo no válida").isEmail();
     request.checkBody("name", "Nombre de usuario no válido").matches(/^[a-zA-Z0-9 ]+$/i);
     if(request.body.bdate !== ""){
