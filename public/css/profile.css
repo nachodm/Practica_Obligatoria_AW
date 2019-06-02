@@ -2,149 +2,150 @@
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
 html, body {
-    top: 0;
-    margin: 0;
-    height: 100%;
-   /* border: 2px solid yellow;*/
-    font-family: 'Niramit', sans-serif;
-    background-color: #084270;
-  }
-  
-  body {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sup{
-    height: 130px;
-    font-size: 100px;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: yellow;
+  top: 0;
+  margin: 0;
+  height: 100%;
+  /* border: 2px solid yellow;*/
+  font-family: 'Niramit', sans-serif;
+  background-color: #084270;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.sup{
+  height: 120px;
+  font-size: 90px;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: yellow;
+}
   
-  header{
+header{
     font-family: 'Margarine', cursive !important;
     text-align: center;
     background-color: whitesmoke;
-  }
+}
   
-  #logo {
-    margin: 10px;
-    max-width:30%;
-    height: auto;
-  }
+#logo {
+  margin: 10px;
+  max-width:30%;
+  height: auto;
+}
   
-  .navbar {
-    width: 100%;
-    background-color: whitesmoke;
-    overflow: auto;
-    }
+.navbar {
+  width: 100%;
+  background-color: whitesmoke;
+  overflow: auto;
+}
     
     /* Navigation links */
-    .navbar a {
-      float: left;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      color: black;
-      text-decoration: none;
-      font-size: 17px;
-      width: 20%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
-      text-align: center; /* If you want the text to be centered */
-      transition: 0.3;
-    }
+.navbar a {
+  float: left;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: black;
+  text-decoration: none;
+  font-size: 17px;
+  width: 20%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
+  text-align: center; /* If you want the text to be centered */
+  transition: 0.3;
+}
     
-    /* Add a background color on mouse-over */
-    .navbar a:hover {
-      background-color: #084270;
-      opacity: 0.9;
-    }
-    
-    /* Style the current/active link */
-    .navbar a.active {
-      color: whitesmoke;
-      background-color: #084270;
-    }
-    
-    /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
-    @media screen and (max-width: 500px) {
-      .navbar a {
-        float: none;
-        display: block;
-        width: 100%;
-        text-align: left; /* If you want the text to be left-aligned on small screens */
-      }
+/* Add a background color on mouse-over */
+.navbar a:hover {
+  background-color: #084270;
+  opacity: 0.9;
+}
+
+/* Style the current/active link */
+.navbar a.active {
+  color: whitesmoke;
+  background-color: #084270;
+}
+
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left; /* If you want the text to be left-aligned on small screens */
   }
+}
   
-  #content {
-    width: 60vw;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-  
-  table {
-    background-color:hsla(0, 19%, 74%, 0.1);
-    border-radius: 10px;
-    padding: 14px 20px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    width: 80%;
-    color: whitesmoke;
-    transition: 0.5s;
-  }
-  
-  td > * {
-    vertical-align : middle;
-  }
-  
-  table:hover {
-    -ms-transform: scale(1.1, 1.05); /* IE 9 */
-    -webkit-transform: scale(1.1, 1.05); /* Safari */
-    transform: scale(1.1, 1.05);
-  }
-  
-  .profile_button {
-    border: 1px solid #ccc;
-    background-color: whitesmoke;
-    color: #084270;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 60%;
-    transition: 0.3s;
-    border-radius: 5px;
-    margin-top: 50px;
-  }
-  
-  /* Add a hover effect for buttons */
-  .profile_button:hover {
-    border: solid 2px whitesmoke;
-    background-color: #084270;
-    color: whitesmoke;
-    opacity: 0.8;
-  }
-  .friendsView {
-    text-decoration: none;
-    font-family: "GloriaHallelujah";
-    font-size: 20pt;
-    color: black;
-  }
-  
-  #displayProfile {
-    border-spacing: 15px;
-  }
-  
-  .icon {
-    width: 175px;
-  }
-  
-  #displayProfile {
-    border-spacing: 15px;
-  }
-  
-  .data {
-    text-align: right;
-  }
+#content {
+  width: 60vw;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+table {
+  background-color:hsla(0, 19%, 74%, 0.1);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 80%;
+  color: whitesmoke;
+  transition: 0.5s;
+  margin-bottom: 30px;
+}
+
+td > * {
+  vertical-align : middle;
+}
+
+table:hover {
+  -ms-transform: scale(1.05, 1.05); /* IE 9 */
+  -webkit-transform: scale(1.05, 1.05); /* Safari */
+  transform: scale(1.05, 1.05);
+}
+
+.profile_button {
+  border: 1px solid #ccc;
+  background-color: whitesmoke;
+  color: #084270;
+  padding: 14px 20px;
+  margin: 8px 0;
+  transition: 0.3s;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/* Add a hover effect for buttons */
+.profile_button:hover {
+  border: solid 1.5px whitesmoke;
+  background-color: #084270;
+  color: whitesmoke;
+  opacity: 0.8;
+}
+.friendsView {
+  text-decoration: none;
+  font-family: "GloriaHallelujah";
+  font-size: 20pt;
+  color: black;
+}
+
+#displayProfile {
+  border-spacing: 15px;
+}
+
+.icon {
+  width: 175px;
+}
+
+#displayProfile {
+  border-spacing: 15px;
+}
+
+.data {
+  text-align: right;
+}

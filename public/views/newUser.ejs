@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
         <meta charset="utf-8">
         <meta name="description" content="Facebluff">
         <title>Registrarse - Facebluff</title>
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <link href="../css/newUser.css" rel ="stylesheet" type="text/css">
     </head>
-
     <body>
         <header>
             <div class="sup">
-                FACEPLUFF
+                FACEBLUFF
             </div>
             <div class="navbar">
                 <a href="login">Entrar</a>
@@ -26,23 +24,22 @@
             <div class ="login">
                 <% if (errors) { %>
                     
-                
                 <div class="errors">
                         <% errors.forEach(p=>{ %>
                             <li><%= p.msg %></li>
                        <% }) %>
                 </div>
                 <%} %>
-                <form id="loginform" method="POST" action="/signUp">
+                <form id="loginform" method="POST" action="/signUp" enctype="multipart/form-data">
                     <div class="container">
                         <label for="email"><b>Email</b></label>
-                        <input type="text" placeholder="Introduce el email" name="email" >
+                        <input type="text" placeholder="Introduce el email" name="email" required>
                     
                         <label for="psw"><b>Contraseña</b></label>
-                        <input type="password" placeholder="Introduce la contraseña" name="psw" >
+                        <input type="password" placeholder="Introduce la contraseña" name="psw" required>
                     
                         <label for="name"><b>Nombre completo</b></label>
-                        <input type="text" placeholder="Introduce nombre y apellidos" name="name" >
+                        <input type="text" placeholder="Introduce nombre y apellidos" name="name" required>
                         <br>
                         <br>
                         <label for="gender"><b>Sexo</b></label>
@@ -67,9 +64,8 @@
                 Ignacio Domingo 
             </p>
             <p>
-            Alberto Fernández-Baíllo
+                Alberto Fernández-Baíllo
             </p>  
         </footer>
-        <script type="text/javascript" src="DAOS/daoUsers.js"></script>
     </body>
 </html>

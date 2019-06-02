@@ -18,9 +18,9 @@ body {
 }
 
 .sup{
-    height: 130px;
-    font-size: 100px;
-    -webkit-text-stroke-width: 2px;
+    height: 120px;
+    font-size: 90px;
+    -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: yellow;
 }
 
@@ -158,3 +158,24 @@ footer {
     text-align: center;
     color: whitesmoke;
  }
+
+ .errors {
+    margin: 4px 0px;
+    padding: 4px 5px;
+    border: solid 1px #DC3545;
+    list-style: none;
+    background-color: #F8D7DA;
+}
+
+.errors li {
+    color: #721C24;
+    padding: 2px;
+}
+
+
+footer {
+    padding: 18px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

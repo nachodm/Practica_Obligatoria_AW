@@ -18,9 +18,9 @@ header{
 }
 
 .sup{
-    height: 130px;
-    font-size: 100px;
-    -webkit-text-stroke-width: 2px;
+    height: 120px;
+    font-size: 90px;
+    -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: yellow;
 }
 

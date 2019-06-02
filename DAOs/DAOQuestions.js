@@ -7,6 +7,10 @@ class DAOQuestions {
         this.pool = pool;
     }
 
+    /**
+     * 
+     * @param {*} callback 
+     */
     getQuestions(callback) {
         this.pool.getConnection((err, conn) => {
             if (err) callback("Error de acceso a la BBDD", undefined);
@@ -27,6 +31,11 @@ class DAOQuestions {
         })
     }
 
+    /**
+     * 
+     * @param {*} question 
+     * @param {*} callback 
+     */
     newQuestion(question, callback){
         this.pool.getConnection((err, connection)=>{
             if (err) {
@@ -46,7 +55,10 @@ class DAOQuestions {
         });
     }
 
-
+    /**
+     * 
+     * @param {*} callback 
+     */
     getLastQid(callback) {
         this.pool.getConnection((err, connection)=>{
             if (err) {
@@ -67,6 +79,13 @@ class DAOQuestions {
         });
     }
 
+    /**
+     * 
+     * @param {*} Qid 
+     * @param {*} Aid 
+     * @param {*} text 
+     * @param {*} callback 
+     */
     insertAnswer(Qid, Aid, text, callback){
         this.pool.getConnection((err, connection) =>{
             if (err) {
@@ -86,7 +105,11 @@ class DAOQuestions {
         });
     }
 
-
+    /**
+     * 
+     * @param {*} id 
+     * @param {*} callback 
+     */
     getQuestionData(id, callback){
         this.pool.getConnection((err, connection)=>{
             if (err) {
@@ -112,6 +135,12 @@ class DAOQuestions {
         });
     }
 
+    /**
+     * 
+     * @param {*} id 
+     * @param {*} email 
+     * @param {*} callback 
+     */
     isAnswered(id, email, callback){
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -131,7 +160,13 @@ class DAOQuestions {
         });
     }
 
-
+    /**
+     * 
+     * @param {*} Qid 
+     * @param {*} email 
+     * @param {*} friends 
+     * @param {*} callback 
+     */
     checkFriendAnswer(Qid, email, friends, callback){
         this.pool.getConnection((err, conn) => {
             if (err) {
@@ -166,6 +201,11 @@ class DAOQuestions {
         });
     }
 
+    /**
+     * 
+     * @param {*} Obj 
+     * @param {*} callback 
+     */
     answerQuestion(Obj, callback){
         this.pool.getConnection((err, connection)=>{
             if (err) {
@@ -184,6 +224,11 @@ class DAOQuestions {
             });
         })
     }
+
+    /**
+     * 
+     * @param {*} callback 
+     */
     randomQuestion(callback){
         this.pool.getConnection((err,connection) =>{
             if(err){
@@ -209,8 +254,6 @@ class DAOQuestions {
             });
         });
     }
-
- }
- 
+}
 
 module.exports = DAOQuestions;

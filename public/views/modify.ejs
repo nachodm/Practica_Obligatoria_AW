@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Facebluff">
+        <title>Modificar usuario - Facebluff</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link href="../css/modify.css" rel ="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <header>
+            <div class="sup">
+                FACEBLUFF
+            </div>
+            <div class="navbar">           
+                <a class="active" href="profile?email=<%=user.email%>">Perfil</a>        
+                <a href="friends">Amigos</a>        
+                <a href="questions">Preguntas</a>        
+                <a href="logout">Desconectar</a>
+                <a> <%= user.points%> puntos</a>
+            </div>
+        </header>
+
+        <div class="body2">
+            <div id="title"><strong>Modificar Usuario</strong></div>
+            <div class ="login">
+                <form id="modifyform" method="POST" action="/modifyUser" enctype="multipart/form-data">
+                    <div class="container">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" value="<%= user.email %>" name="email" readonly>
+                    
+                        <label for="psw"><b>Contraseña</b></label>
+                        <input type="password" placeholder="<%= user.password %>" name="psw" required>
+                    
+                        <label for="name"><b>Nombre completo</b></label>
+                        <input type="text" value="<%= user.name %>" name="name" required>
+                        <br>
+                        <br>
+                        <label for="sex"><b>Sexo</b></label>
+                        <input type="radio" name="gender" value='m' required/>Masculino
+                        <input type="radio" name="gender" value='f' />Femenino
+                        <input type="radio" name="gender" value='o' />Otro
+                        <br>
+                        <br>
+                        <label for="bdate"><b>Fecha de nacimiento</b></label>
+                        <input type="date" placeholder="dd/mm/aaaa>" name="bdate">
+                        <label for="picture"><b>Imagen de perfil</b></label>
+                        <input type="file" name="picture">
+
+                        <button type="submit">Modificar usuario</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+
+        <footer>
+            <p> 
+                Ignacio Domingo 
+            </p>
+            <p>
+                Alberto Fernández-Baíllo
+            </p>  
+        </footer>
+
+    </body>
+</html>
