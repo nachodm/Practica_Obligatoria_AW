@@ -141,7 +141,7 @@ td > * {
 }
 
 .mytext{
-    margin-top: 60px;
+    margin-top: 50px;
 }
 
 .friendsView {
@@ -174,11 +174,12 @@ h2{
   }
 
 .rightTable{
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 .friends_search{
+    min-width: 80%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
@@ -186,7 +187,6 @@ h2{
 }
 
 form {
-    
     width: 100%; 
     margin-left: auto;
     margin-right: auto;

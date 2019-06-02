@@ -28,18 +28,26 @@
         <div id="content">
             <% if (fdata) { %>
                 <div>
-                    <h1> Perfil de <%=fdata.name %></h1>
+                    <h1 class="mytext"> Perfil de <%=fdata.name %></h1>
                     <table id="displayProfile">
                         <tr>
                             <td rowspan="4" colspan="4">    
                                 <img class="icon" src="img/cara.png" alt="profile picture"/></td>
                             <td class="data"><%= fdata.name %></td>
                         </tr>
+                        <% if (age !== -1) { %>
+                            <tr>
+                                <td class="data"><%=age %> años</td>
+                            </tr>
+                        <% } %>
                         <tr>
-                            <td class="data"><%=age %> años</td>
-                        </tr>
-                        <tr>
-                            <td class="data"><%= fdata.gender %></td>
+                            <% if (fdata.gender === 'm') { %>
+                                <td class="data">Hombre</td>
+                            <% } else if (fdata.gender === 'f') { %>
+                                <td class="data">Mujer</td>
+                            <% } else { %>
+                                <td class="data">Otro</td>
+                            <%} %>
                         </tr>
                         <tr>
                             <td class="data"><%= fdata.points %> puntos</td>
@@ -49,7 +57,7 @@
             
             <%} else {%>
                 <div>
-                    <h1>Tu perfil</h1>
+                    <h1 class="mytext">Tu perfil</h1>
                     <table id="displayProfile">
                         <tr>
                             <td rowspan="4" colspan="4">    
@@ -61,9 +69,11 @@
                             </td>
                             <td class="data"><%= data.name %></td>
                         </tr>
-                        <tr>
-                            <td class="data"><%=age%> años</td>
-                        </tr>
+                        <% if (age !== -1) { %>
+                            <tr>
+                                <td class="data"><%=age %> años</td>
+                            </tr>
+                        <% } %>
                         <tr>
                             <% if (data.gender === 'm') { %>
                                 <td class="data">Hombre</td>

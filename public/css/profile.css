@@ -2,12 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
 html, body {
-  top: 0;
-  margin: 0;
-  height: 100%;
-  /* border: 2px solid yellow;*/
-  font-family: 'Niramit', sans-serif;
-  background-color: #084270;
+    top: 0;
+    margin: 0;
+    height: 100%;
+    font-family: 'Exo', sans-serif;
+    background-color: #084270;
 }
 
 .disabled {
@@ -17,6 +16,10 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+}
+
+.mytext {
+  color: whitesmoke;
 }
 
 .sup{

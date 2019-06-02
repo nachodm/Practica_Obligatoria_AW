@@ -79,9 +79,11 @@ app.get("/profile", (request, response) => {
                         }
                         else {
                             let age = -1;
-                            daousers.parseAge(fdata.birthday, (parsed) => {
-                                if(!isNaN(parsed)) {age = parsed;}
-                            })
+                            if (fdata.birthday) {
+                                daousers.parseAge(fdata.birthday, (parsed) => {
+                                    if(!isNaN(parsed)) {age = parsed;}
+                                })
+                            }
                             response.render("profile", { data: request.session.userData, fdata: fdata, pictures: pictures, age: age});
                         }
                     })
@@ -94,9 +96,11 @@ app.get("/profile", (request, response) => {
                 }
                 else {
                     let age = -1;
-                    daousers.parseAge(request.session.userData.birthday, (parsed) => {
-                        if(!isNaN(parsed)) {age = parsed;}
-                    })
+                    if (request.session.userData.birthday) {
+                        daousers.parseAge(request.session.userData.birthday, (parsed) => {
+                            if(!isNaN(parsed)) {age = parsed;}
+                        })
+                    }
                     response.render("profile", { data: request.session.userData, fdata: null, pictures: pictures, age:age});
                 }
             })
@@ -372,8 +376,7 @@ app.post("/friendResponse", (request, response)=>{
 app.post("/sendFriendRequest", (request, response) => {
     daousers.sendFriendRequest(request.session.currentUser, request.body.friendrequest, (err, result) => {
         if (result) {
-            console.log("hola " + result);
-            request.session.search = null;
+            delete request.session.search;
             response.redirect("friends");
         }
     });
