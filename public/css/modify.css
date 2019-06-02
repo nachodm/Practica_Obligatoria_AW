@@ -1,53 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Margarine');
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
-
-*{
-    margin: 0;
-    top: 0;
-}
-
 html, body {
-  top: 0;
-  margin: 0;
-  height: 100%;
-  font-family: 'Exo', sans-serif;
-  background-color: #084270;
+    top: 0;
+    margin: 0;
+    height: 100%;
+    /* border: 2px solid yellow;*/
+    font-family: 'Niramit', sans-serif;
+    background-color: #084270;
 }
-
-.sup{
-  height: 120px;
-  font-size: 90px;
-  -webkit-text-stroke-width: 1.5px;
-  -webkit-text-stroke-color: yellow;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
 header{
     font-family: 'Margarine', cursive !important;
     text-align: center;
     background-color: whitesmoke;
 }
 
-#logo {
-    margin: 10px;
-    max-width:30%;
-    height: auto;
+.sup{
+    height: 120px;
+    font-size: 90px;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: yellow;
 }
 
-
-  .navbar {
+.navbar {
     width: 100%;
     background-color: whitesmoke;
     overflow: auto;
-  }
-  
-  /* Navigation links */
-  .navbar a {
+}
+    
+    /* Navigation links */
+.navbar a {
     float: left;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -56,58 +38,59 @@ header{
     font-size: 17px;
     width: 20%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc.. */
     text-align: center; /* If you want the text to be centered */
-    transition: 0.3s;
-  }
-  
-  /* Add a background color on mouse-over */
-  .navbar a:hover {
+    transition: 0.3;
+}
+    
+/* Add a background color on mouse-over */
+.navbar a:hover {
     background-color: #084270;
-    opacity: 0.95;
-  }
-  
-  /* Style the current/active link */
-  .navbar a.active {
+    opacity: 0.9;
+}
+
+/* Style the current/active link */
+.navbar a.active {
     color: whitesmoke;
     background-color: #084270;
-  }
-
+}
+  
 /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
 @media screen and (max-width: 500px) {
-      .navbar a {
+    .navbar a {
       float: none;
       display: block;
       width: 100%;
       text-align: left; /* If you want the text to be left-aligned on small screens */
-      }
-  }
+    }
+}
 
-  #content {
-    margin-top: 80px;
+.body2{
     width: 60vw;
     margin-left: auto;
     margin-right: auto;
+}
+
+#title{
+    padding: 2px;
     text-align: center;
-}
-
-h1{
-  margin-bottom: 30px;
-  color: whitesmoke;
-}
-
-p{
-  font-size: 30px;
-  margin-bottom: 30px;
-  color: whitesmoke;
+    margin-top: 5%;
+    font-size: 46px;
+    color: whitesmoke;
 }
 
 
-.question{
+/* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+@media screen and (max-width: 500px) {
+      
+    #title {
+        font-size: 30px;
+    }
+}
+
+.login{
     padding: 50px;
     background-color: whitesmoke;
     border: solid 2px #333333;
     color: black;
-    margin-bottom: 30px;
-    margin-top: 10px;
 }
 
 /* Bordered form */
@@ -152,17 +135,17 @@ button:hover {
 }
 
 footer {
+    margin-top: 60px;
     font-size: 12px;
     flex-shrink: 0;
-    margin-top: 70px;
+    padding: 18px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     position: static;
     bottom: 0;
     background: #333333;
     width:100%;
     text-align: center;
     color: whitesmoke;
-}
-
-li{
-  list-style-type: none
 }

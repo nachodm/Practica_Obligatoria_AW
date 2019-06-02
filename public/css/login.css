@@ -24,7 +24,7 @@
     background-color: whitesmoke;
     overflow: auto;
     font-size: 20px;
-  }
+}
 
 .navbar a {
     float: left;
@@ -59,7 +59,7 @@ body{
 }
 
 .body2{
-    min-height: 60vh;
+    min-height: 64vh;
     width: 60vw;
     margin-left: auto;
     margin-right: auto;
@@ -112,18 +112,6 @@ button:hover {
     padding: 16px;
 }
 
-footer {
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 70px;
-    position: static;
-    bottom: 0;
-    background: #333333;
-    width:100%;
-    text-align: center;
-    color: whitesmoke;
-}
-
 .errors {
     margin: 4px 0px;
     padding: 4px 5px;
@@ -137,9 +125,19 @@ footer {
     padding: 2px;
 }
 
+
 footer {
+    margin-top: 60px;
+    font-size: 12px;
+    flex-shrink: 0;
     padding: 18px 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    position: static;
+    bottom: 0;
+    background: #333333;
+    width:100%;
+    text-align: center;
+    color: whitesmoke;
 }

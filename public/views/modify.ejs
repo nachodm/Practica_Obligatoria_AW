@@ -7,18 +7,19 @@
         <title>Modificar usuario - Facebluff</title>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <link href="css/modify.css" rel ="stylesheet" type="text/css">
-        <link type="text/css" rel="stylesheet" href="css/main.css">
+        <link href="../css/modify.css" rel ="stylesheet" type="text/css">
     </head>
 
     <body>
         <header>
-            <img id="logo" src="img/logo.png" alt="Logo Facebluff"> 
+            <div class="sup">
+                FACEBLUFF
+            </div>
             <div class="navbar">           
-                <a class="active" href="/profile">Perfil</a>        
-                <a href="/friends">Amigos</a>        
-                <a href="/questions">Preguntas</a>        
-                <a href="/logout">Desconectar</a>
+                <a class="active" href="profile?email=<%=user.email%>">Perfil</a>        
+                <a href="friends">Amigos</a>        
+                <a href="questions">Preguntas</a>        
+                <a href="logout">Desconectar</a>
                 <a> <%= user.points%> puntos</a>
             </div>
         </header>
@@ -60,7 +61,7 @@
                 Ignacio Domingo 
             </p>
             <p>
-            Alberto Fernández-Baíllo
+                Alberto Fernández-Baíllo
             </p>  
         </footer>
 

@@ -11,8 +11,7 @@ const mysqlSession = require("express-mysql-session");
 const DAOUsers = require("./DAOs/DAOUsers");
 const DAOQuestions = require("./DAOs/DAOQuestions");
 const multer = require("multer");   
-
-const multerFactory = multer();
+const multerFactory = multer({ dest: path.join(__dirname, "public/img")});
 
 const MySQLStore = mysqlSession(session);
 const sessionStore = new MySQLStore({
@@ -32,8 +31,7 @@ let pool = mysql.createPool({
 const middlewareSession = session({
     saveUninitialized: false,
     secret: "foobar34",
-    resave: false,
-    store: sessionStore
+    resave: false
 });
 
 const daousers = new DAOUsers(pool);
@@ -218,11 +216,11 @@ app.get("/answerquestion", (request, response) => {
 })
 
 app.get("/modify", (request, response) => {
-    if (request.session.currrentUser === undefined) {
-        response.redirect("login");
+    if (request.session.currentUser !== undefined) {
+        response.render("modify", {user: request.session.userData});
     }
     else {
-        response.render("modify", {user: request.session.currentUser})
+        response.redirect("login");
     }
 })
 
