@@ -192,6 +192,15 @@ div.desc {
   justify-content: space-around;
 }
 
+
+input[type=text] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
 .inputfile {
 	width: 0.1px;
 	height: 0.1px;

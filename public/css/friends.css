@@ -169,6 +169,10 @@ h2{
     margin-top: 50px;
 }
 
+.disabled {
+    pointer-events: none;
+  }
+
 .rightTable{
     width: 90%;
     margin-left: auto;

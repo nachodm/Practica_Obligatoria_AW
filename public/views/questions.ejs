@@ -18,7 +18,9 @@
                 <a href="friends">Amigos</a>        
                 <a class="active" href="#">Preguntas</a>        
                 <a href="#">Desconectar</a>
-                <div> 50 pts</div>
+                <% if(data) { %>
+                    <a class="disabled"> <%= data.points %> pts.</a>
+                <% } %>
             </div>
         </header>
         <div id="content">

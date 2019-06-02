@@ -69,9 +69,38 @@ app.get("/profile", (request, response) => {
     else {
         if (request.query.email != undefined)
             daousers.getInfoUser(request.query.email, (err, fdata) =>{
-                response.render("profile", { data: request.session.userData, fdata: fdata });
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
+                else {
+                    daousers.getPictures(request.query.email, (err, pictures) => {
+                        if (err) {
+                            response.status(500).send('Error 500: Internal server error');
+                        }
+                        else {
+                            let age = -1;
+                            daousers.parseAge(fdata.birthday, (parsed) => {
+                                if(!isNaN(parsed)) {age = parsed;}
+                            })
+                            response.render("profile", { data: request.session.userData, fdata: fdata, pictures: pictures, age: age});
+                        }
+                    })
+                }
         })
-        else  response.render("profile", {data: request.session.userData, fdata: null});
+        else {
+            daousers.getPictures(request.session.currentUser, (err, pictures) => {
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
+                else {
+                    let age = -1;
+                    daousers.parseAge(request.session.userData.birthday, (parsed) => {
+                        if(!isNaN(parsed)) {age = parsed;}
+                    })
+                    response.render("profile", { data: request.session.userData, fdata: null, pictures: pictures, age:age});
+                }
+            })
+        }
     }
 })
 
@@ -93,7 +122,7 @@ app.get("/friends", (request, response) => {
     else {
         daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
             daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
-                response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends});
+                response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends, data: request.session.userData});
             });
         })
     }
@@ -104,7 +133,9 @@ app.get("/newquestion", (request, response) => {
         response.redirect("login");
     }
     else {
-        response.render("newquestion", {user: request.session.currentUser, errors: request.session.newQuestErr});
+        let msg = request.session.newQuestErr;
+        delete request.session.newQuestErr;
+        response.render("newquestion", {user: request.session.currentUser, errors: msg, data: request.session.userData});
     }
 });
 
@@ -152,11 +183,23 @@ app.post("/createnewquestion", (request, response) => {
                                                         }
                                                     });
                                                 }
+                                                else {
+                                                    response.status(500).send('Error 500: Internal server error');
+                                                }
                                             });
+                                        }
+                                        else {
+                                            response.status(500).send('Error 500: Internal server error');
                                         }
                                     });
                                 }
+                                else {
+                                    response.status(500).send('Error 500: Internal server error');
+                                }
                             });
+                        }
+                        else {
+                            response.status(500).send('Error 500: Internal server error');
                         }
                     });
                     response.redirect("questions");
@@ -171,7 +214,7 @@ app.get("/questions", (request, response) => {
     }
     else {
         daoquestions.randomQuestion((err, questions) => {
-            response.render("questions", {user: request.session.currentUser, questions: questions});
+            response.render("questions", {user: request.session.currentUser, questions: questions, data: request.session.userData});
         }); 
     }
 })
@@ -181,12 +224,36 @@ app.get("/question", (request, response) => {
         daoquestions.isAnswered(request.query.id, request.session.currentUser, (err, answered) => {
             daousers.getUserFriends(request.session.currentUser, (err, friends) => {
                     daoquestions.checkFriendAnswer(request.query.id, request.session.currentUser, friends, (err, fanswers) => {
-                        response.render("question", {user: request.session.currentUser, question: question, answered:answered, fanswers: fanswers});
+                        response.render("question", {user: request.session.currentUser, question: question, answered:answered, fanswers: fanswers, data: request.session.userData});
                     });
             })
         });      
     });
 })
+
+app.post("/uploadpicture", multerFactory.single("file"), (request, response) => {
+    let file = "";
+    if (request.file) {
+        file = request.file.filename;
+    }
+
+    daousers.uploadPicture(request.session.currentUser, request.body.desc, file, (err) => {
+        if (err) {
+            response.status(500).send('Error 500: Internal server error');
+        }
+        else {
+            request.session.userData.points = request.session.userData.points - 100;
+            daousers.updatePoints(request.session.currentUser, request.session.userData.points, (err) => {
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
+                else {
+                    response.redirect("profile");
+                }
+            })
+        }
+    });
+});
 
 app.post("/answerQuestion", (request, response) => {
     let answer =  {
@@ -210,7 +277,7 @@ app.get("/answerquestion", (request, response) => {
     }
     else {
         daoquestions.getQuestionData(request.query.id, (err, data) =>{
-            response.render("answerquestion", {user: request.session.currentUser, data: data, guessing: false});
+            response.render("answerquestion", {user: request.session.currentUser, data: data, guessing: false, data: request.session.userData});
         });
     }
 })
@@ -244,7 +311,9 @@ app.post("/isUserCorrect", (request, response) => {
                         response.redirect("profile");
                     }
                     else {
-                        request.session.loginErr = "Email o contraseña incorrecta."
+                        request.session.loginErr = [];
+                        let temp = {msg:"Email o contraseña incorrecta"}
+                        request.session.loginErr.push(temp);
                         response.redirect("login");
                     }
                 }
@@ -266,21 +335,15 @@ app.post("/modifyUser", multerFactory.single("picture"), (request, response) => 
         gender: request.body.gender,
         birthdate: request.body.bdate,
         profile_picture: file,
-        points: request.session.loggedUser.points
+        points: request.session.userData.points
     }
 
-    users.modifyUser(user, (err, result) => {
+    daousers.modifyUser(user, (err, result) => {
         if (err) {
             response.status(500).send('Error 500: Internal server error');
         }
         if (result) {
-            /*if (user.birthdate !== undefined) {
-                users.calculateAge(user.birthdate, (age) => {
-                    if(isNaN(age)) {user.birthdate = -1;}
-                    else {user.birthdate = age;}
-                })
-            }*/
-            request.session.currentUser = user;
+            request.session.userData = user;
             response.redirect("profile");
         }
     });

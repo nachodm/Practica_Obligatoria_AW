@@ -8,6 +8,14 @@ CREATE TABLE `users` (
     `points` int(5) DEFAULT 0
 );
 
+CREATE TABLE `gallery` ( 
+    `email` VARCHAR(256) NOT NULL, 
+    `picture` VARCHAR(256) NOT NULL,
+    `desc` VARCHAR(256) NOT NULL,
+    PRIMARY KEY (email, picture), 
+    CONSTRAINT `email_fk`FOREIGN KEY (`email`) REFERENCES `users`(`email`) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+
 CREATE TABLE `friends`(
     `user1` VARCHAR(256) NOT NULL,
     `user2` VARCHAR(256) NOT NULL,
@@ -17,7 +25,6 @@ CREATE TABLE `friends`(
     CONSTRAINT `friends_fk2`FOREIGN KEY (`user2`) REFERENCES `users`(`email`) ON DELETE CASCADE ON UPDATE CASCADE
     
 );
-
 
 CREATE TABLE `questions` (
     `id` int(20) AUTO_INCREMENT,

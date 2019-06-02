@@ -124,9 +124,9 @@
     
     .balik-home:hover:after {
       width:100%;
-      -webkit-transition: all 1s ease-in-out;
-      -moz-transition: all 1s ease-in-out;
-      transition: all 1s ease-in-out;
+      -webkit-transition: all 1s ease-out;
+      -moz-transition: all 1s ease-out;
+      transition: all 1s ease-out;
     }
     .balik-home a{color:white;text-decoration:none}
 
