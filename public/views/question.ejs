@@ -39,17 +39,16 @@
             <p>Los siguientes amigos han contestado a esta pregunta:</p>
             <table>
                 <% fanswers.forEach(friend => { %>
-                <form method="POST" action="guessquestion">
-                <tr>
-                    <td colspan="4">
-                        <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                        <a class="friendsView"> <%= friend %>  </a>
-                            <a class="profile_button">Adivinar</a>
-                    </td>
-                </tr>
-            </form>
+                    <form method="POST" action="guessquestion">
+                        <tr>
+                            <td colspan="4">
+                                <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                                <a class="friendsView"> <%= friend %>  </a>
+                                    <a class="profile_button">Adivinar</a>
+                            </td>
+                        </tr>
+                    </form>
                 <% }) %>
-                
             </table>
             <% } %>
         </div>

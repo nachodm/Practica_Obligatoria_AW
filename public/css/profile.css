@@ -149,3 +149,74 @@ table:hover {
 .data {
   text-align: right;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  grid-column-gap: 30px;
+  margin: 0 auto;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+div.gallery {
+  flex-grow: 1;
+  padding: 1px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  width: 25%;
+  margin-bottom: 10px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  background-color: whitesmoke;
+  padding: 8px 2px;
+  text-align: center;
+}
+
+.twocolumns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: #084270;;
+  background-color: whitesmoke;
+  display: inline-block;
+  padding: 10px 8px;
+  border-radius: 5px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  transition: 0.2s;
+  background-color: red;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}

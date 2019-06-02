@@ -25,29 +25,30 @@
                 <% } %>
             </div>
         </header>
-            <div id="content">
-                <% if (fdata) { %>
-                
+        <div id="content">
+            <% if (fdata) { %>
+                <div>
                     <h1> Perfil de <%=fdata.name %></h1>
                     <table id="displayProfile">
-                           
-                            <tr>
-                                <td rowspan="4" colspan="4">    
-                                    <img class="icon" src="img/cara.png" alt="profile picture"/></td>
-                                <td class="data"><%= fdata.name %></td>
-                            </tr>
-                            <tr>
-                                <td class="data"><%= fdata.birthday %></td>
-                            </tr>
-                            <tr>
-                                <td class="data"><%= fdata.gender %></td>
-                            </tr>
-                            <tr>
-                                <td class="data"><%= fdata.points %></td>
-                            </tr>
-                        </table>
-                
-                <%} else {%>
+                        <tr>
+                            <td rowspan="4" colspan="4">    
+                                <img class="icon" src="img/cara.png" alt="profile picture"/></td>
+                            <td class="data"><%= fdata.name %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= fdata.birthday %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= fdata.gender %></td>
+                        </tr>
+                        <tr>
+                            <td class="data"><%= fdata.points %></td>
+                        </tr>
+                    </table>
+                </div>
+            
+            <%} else {%>
+                <div>
                     <h1>Tu perfil</h1>
                     <table id="displayProfile">
                         <tr>
@@ -70,10 +71,58 @@
                             <td class="data"><%= data.points %></td>
                         </tr>
                     </table>
-                    
-                    <a class="profile_button" href="modify">Modificar Usuario</a>
-                <% } %>
-              
+                    <div class="twocolumns">
+                        <a class="profile_button" href="modify">Modificar Usuario</a>
+                        <div>
+                            <input type="file" name="file" id="file" class="inputfile" />
+                            <label for="file">Sube tus fotos</label>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            <div class="container">
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="Cinque Terre" width="600" height="400">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="Forest">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+                
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop" alt="Northern Lights">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+                
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="Cinque Terre">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+            
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="Forest">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
+                
+                <div class="gallery">
+                    <a target="_blank" href="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop" alt="Northern Lights">
+                    </a>
+                    <div class="desc">Add a description of the image here</div>
+                </div>
             </div>
+        </div>
     </body>
 </html>
