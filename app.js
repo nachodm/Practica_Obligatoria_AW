@@ -331,12 +331,20 @@ app.post("/isUserCorrect", (request, response) => {
 
 app.post("/modifyUser", multerFactory.single("picture"), (request, response) => {
     let file = "";
-    request.checkBody("bdate", "La fecha no puede ser posterior a la actual").isBefore();
+    if(request.body.birthday)     
+        request.checkBody("bdate", "La fecha no puede ser posterior a la actual").isBefore();
+
     request.checkBody("email","Email no válido").isEmail();
     request.getValidationResult().then(function(results){
         if(results.isEmpty()){
             if (request.file) {
                 file = request.file.filename;
+            }
+            else{
+                file = request.session.userData.profile_picture;
+            }
+            if(!request.body.bdate) {
+                request.body.bdate = request.session.userData.birthday;
             }
             let user = {
                 email: request.body.email,
