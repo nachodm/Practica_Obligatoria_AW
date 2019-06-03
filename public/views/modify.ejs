@@ -26,8 +26,15 @@
 
         <div class="body2">
             <div id="title"><strong>Modificar Usuario</strong></div>
+             
             <div class ="login">
+                
                 <form id="modifyform" method="POST" action="/modifyUser" enctype="multipart/form-data">
+                    <% if (errors) {%>
+                        <% errors.forEach( p =>{ %>
+                            <li class="errors"><%=p.msg%></li>
+                        <%})%>
+                    <% }%>  
                     <div class="container">
                         <label for="email"><b>Email</b></label>
                         <input type="text" value="<%= user.email %>" name="email" readonly>

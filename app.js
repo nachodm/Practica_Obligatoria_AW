@@ -288,7 +288,9 @@ app.get("/answerquestion", (request, response) => {
 
 app.get("/modify", (request, response) => {
     if (request.session.currentUser !== undefined) {
-        response.render("modify", {user: request.session.userData});
+        let temp = request.session.modifyError;
+        delete request.session.modifyError;
+        response.render("modify", {user: request.session.userData, errors: temp});
     }
     else {
         response.redirect("login");
@@ -329,28 +331,39 @@ app.post("/isUserCorrect", (request, response) => {
 
 app.post("/modifyUser", multerFactory.single("picture"), (request, response) => {
     let file = "";
-    if (request.file) {
-        file = request.file.filename;
-    }
-    let user = {
-        email: request.body.email,
-        password: request.body.psw,
-        name: request.body.name,
-        gender: request.body.gender,
-        birthdate: request.body.bdate,
-        profile_picture: file,
-        points: request.session.userData.points
-    }
-
-    daousers.modifyUser(user, (err, result) => {
-        if (err) {
-            response.status(500).send('Error 500: Internal server error');
+    request.checkBody("bdate", "La fecha no puede ser posterior a la actual").isBefore();
+    request.checkBody("email","Email no válido").isEmail();
+    request.getValidationResult().then(function(results){
+        if(results.isEmpty()){
+            if (request.file) {
+                file = request.file.filename;
+            }
+            let user = {
+                email: request.body.email,
+                password: request.body.psw,
+                name: request.body.name,
+                gender: request.body.gender,
+                birthdate: request.body.bdate,
+                profile_picture: file,
+                points: request.session.userData.points
+            }
+        
+            daousers.modifyUser(user, (err, result) => {
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
+                if (result) {
+                    request.session.userData = user;
+                    response.redirect("profile");
+                }
+            });
         }
-        if (result) {
-            request.session.userData = user;
-            response.redirect("profile");
+        else{
+            request.session.modifyError = results.array();
+            response.redirect("modify");
         }
-    });
+    })
+    
 });
 
 app.post("/search", (request, response)=>{
