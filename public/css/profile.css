@@ -13,6 +13,10 @@ html, body {
   pointer-events: none;
 }
 
+h4{
+  color: white;
+} 
+
 body {
   display: flex;
   flex-direction: column;

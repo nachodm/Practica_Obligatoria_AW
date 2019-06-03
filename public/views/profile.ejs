@@ -90,14 +90,14 @@
                     <div class="twocolumns">
                         <a class="profile_button" href="modify">Modificar Usuario</a>
                         <div>
-                           <% if (data.points >= 100) {%>
-                            <form id="uploadform" method="POST" action="/uploadpicture" enctype="multipart/form-data">
-                                <input type="file" name="file" id="file" class="inputfile" accept="image/*"/>
-                                <label for="file">Escoger foto</label>
-                                <input type="text" placeholder="Descripción" name="desc" required>
-                                <button type="submit" class="profile_button">Subir</button>
-                            </form>
-                           <% } else {%>
+                            <% if (data.points >= 100) {%>
+                                <form id="uploadform" method="POST" action="/uploadpicture" enctype="multipart/form-data">
+                                    <input type="file" name="file" id="file" class="inputfile" accept="image/*"/>
+                                    <label for="file">Escoger foto</label>
+                                    <input type="text" placeholder="Descripción" name="desc" required>
+                                    <button type="submit" class="profile_button">Subir</button>
+                                </form>
+                            <% } else {%>
                                 <h4>No tienes puntos suficientes para subir foto</h4>
                             <% } %>
                         </div>

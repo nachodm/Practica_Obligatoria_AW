@@ -112,6 +112,19 @@ input[type=radio] {
     margin-left: 5%;
 }
 
+.errors {
+    margin: 4px 0px;
+    padding: 4px 5px;
+    border: solid 1px #DC3545;
+    list-style: none;
+    background-color: #F8D7DA;
+}
+
+.errors li {
+    color: #721C24;
+    padding: 2px;
+} 
+
 .disabled {
     pointer-events: none;
   }
