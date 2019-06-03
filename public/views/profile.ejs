@@ -32,7 +32,11 @@
                     <table id="displayProfile">
                         <tr>
                             <td rowspan="4" colspan="4">    
-                                <img class="icon" src="img/cara.png" alt="profile picture"/></td>
+                                <% if (fdata.profile_picture) { %>
+                                    <img class="icon" src="img/<%=fdata.profile_picture%>" alt="profile picture" /> 
+                                <% } else { %>
+                                    <img class="icon" src="img/cara.png" alt="profile picture" /> 
+                                <% } %></td>
                             <td class="data"><%= fdata.name %></td>
                         </tr>
                         <% if (age !== -1) { %>
