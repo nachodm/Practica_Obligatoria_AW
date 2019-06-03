@@ -30,39 +30,40 @@
         <div class="left">
 
            <div>
-            <h2>Solicitudes de amistad</h2>
-    
-    
-            <% if (friendsRequest) { %>
-                <table> 
-                    <% friendsRequest.forEach( p=> { %>
-                        <tr>
-                            <form method="POST" action="friendResponse">
-                            <td colspan="4">
-                                <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
-                                <% if (p.picture) { %>
-                                    <img class="icon_miniature" src="img/<%=p.picture%>" alt="profile picture" /> 
-                                <% } else { %>
-                                    <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                                <% } %>
-                                <a class="friendsView"> <%= p.name %> </a>
-                            </td>
-                            <td class="bord">
-                                <input class="profile_button" type="submit" name="btn" value="Aceptar">
-                            </td>
-                            <td>
-                                <input class="profile_button" type="submit" name="btn" value="Rechazar">
-                            </td>
-                            </form>
-                        </tr>
-                    <% }) %>
-                </table>
-            <% } %>
+                <h2>Solicitudes de amistad</h2>
+        
+                <% if (friendsRequest.length > 0) { %>
+                    <table> 
+                        <% friendsRequest.forEach( p=> { %>
+                            <tr>
+                                <form method="POST" action="friendResponse">
+                                <td colspan="4">
+                                    <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
+                                    <% if (p.picture) { %>
+                                        <img class="icon_miniature" src="img/<%=p.picture%>" alt="profile picture" /> 
+                                    <% } else { %>
+                                        <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                                    <% } %>
+                                    <a class="friendsView"> <%= p.name %> </a>
+                                </td>
+                                <td class="bord">
+                                    <input class="profile_button" type="submit" name="btn" value="Aceptar">
+                                </td>
+                                <td>
+                                    <input class="profile_button" type="submit" name="btn" value="Rechazar">
+                                </td>
+                                </form>
+                            </tr>
+                        <% }) %>
+                    </table>
+                <% } else {%>
+                    <h4>No tienes solicitudes de amistad pendientes.</h4>
+                <% } %>
            </div>
     
            <div>
                 <h2 class="mytext">Mis amigos</h2>
-                <% if(friends) { %>
+                <% if(friends.length > 0) { %>
                     <table class="tablefriends">
                         <% friends.forEach( p =>{ %>
                         <tr>
@@ -79,6 +80,8 @@
                         </tr>
                         <% }) %>
                     </table>
+                <% } else { %>
+                    <h4>Aún no has añadido ningún amigo.</h4>
                 <% } %>
            </div>
         </div>
@@ -91,8 +94,8 @@
             </form>
     
             <div class="friends_search">
-                <h2>Amigos encontrados</h2>
                 <% if (search) { %>
+                <h2>Amigos encontrados:</h2>
                 <table class="rightTable">
                     <% search.forEach( p => { %>
                     <tr>
