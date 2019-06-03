@@ -31,75 +31,43 @@ class DAOQuestions {
         })
     }
 
-    /**
-     * 
-     * @param {*} question 
-     * @param {*} callback 
-     */
-    newQuestion(question, callback){
+   /**
+    * 
+    * @param {*} question 
+    * @param {*} answers 
+    * @param {*} callback 
+    */
+    newQuestion(question, answers, callback){
         this.pool.getConnection((err, connection)=>{
             if (err) {
-                callback("Error de conexión a la BBDD", false);
+                callback("Error de conexión a la BBDD");
             }
             connection.query("INSERT INTO questions (question_text, numbanswers) VALUES (?, ?)",
             [question.question_text, question.numbanswers],
-            (err) => {
-                connection.release();
+            (err, result) => {
                 if (err) {
-                    callback("Error de acceso a la BBDD", false);
-                }
-                else {
-                    callback(null, true)
-                }
-            });
-        });
-    }
-
-    /**
-     * 
-     * @param {*} callback 
-     */
-    getLastQid(callback) {
-        this.pool.getConnection((err, connection)=>{
-            if (err) {
-                callback("Error de conexión a la BBDD", false);
-            }
-            connection.query("SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?",
-            ["practica1", "questions"],
-            (err, rows) => {
-                connection.release();
-                if (err) {
-                    callback("Error de acceso a la BBDD", false);
-                }
-                else {
-                    if (rows.length == 0) callback(null, 1);
-                    else callback(null, rows[0].AUTO_INCREMENT);
-                }
-            });
-        });
-    }
-
-    /**
-     * 
-     * @param {*} Qid 
-     * @param {*} Aid 
-     * @param {*} text 
-     * @param {*} callback 
-     */
-    insertAnswer(Qid, Aid, text, callback){
-        this.pool.getConnection((err, connection) =>{
-            if (err) {
-                callback("Error de conexion a la BBDD");
-            }
-            connection.query("INSERT INTO answers (Qid, Aid, text) VALUES (?, ?, ?)",
-            [Qid, Aid, text],
-            (err) => {
-                connection.release();
-                if (err) {
-                    callback("Error de acceso a la BBDD");
-                }
-                else {
-                    callback(null);
+                    connection.release();
+                    callback(err);
+                } else {
+                    let lastId = result.insertId;
+                    if (answers.length > 0) {
+                        let ans = [];
+                        let id = 1;
+                        answers.forEach(an => {
+                            ans.push([lastId, id, an]);
+                            id++;
+                        })
+                        connection.query("INSERT INTO answers (Qid, Aid, text) VALUES ?", [ans],
+                            (err) => {
+                                connection.release();
+                                if (err) {
+                                    callback(err);
+                                    return;
+                                }
+                                callback(null);
+                            }
+                        );
+                    }
                 }
             });
         });

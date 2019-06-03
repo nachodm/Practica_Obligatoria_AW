@@ -124,10 +124,20 @@ app.get("/friends", (request, response) => {
         response.redirect("login");
     }
     else {
-        daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest)=>{
-            daousers.getUserFriends(request.session.currentUser, (err, friends)=>{
-                response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends, data: request.session.userData});
-            });
+        daousers.getFriendRequests(request.session.currentUser, (err, friendsRequest) => {
+            if (err) {
+                response.status(500).send('Error 500: Internal server error');
+            }
+            else {
+                daousers.getUserFriends(request.session.currentUser, (err, friends) => {
+                    if (err) {
+                        response.status(500).send('Error 500: Internal server error');
+                    }
+                    else {
+                        response.render("friends", {search: request.session.search, friendsRequest: friendsRequest, friends: friends, data: request.session.userData});
+                    }
+                });
+            }
         })
     }
 })
@@ -146,12 +156,6 @@ app.get("/newquestion", (request, response) => {
 app.post("/createnewquestion", (request, response) => {
     request.checkBody("option_1", "No puedes introducir una respuesta en blanco").notEmpty();
     request.checkBody("option_2", "No puedes introducir una respuesta en blacno").notEmpty();
-    request.checkBody("option_3","No puedes introducir una respuesta en blacno").notEmpty();
-    request.checkBody("option_4","No puedes introducir una respuesta en blacno").notEmpty();
-    request.checkBody("option_1","Solo se puede usar carácteres alfanuméricos").matches(/^[A-Z0-9]+$/i)
-    request.checkBody("option_2","Solo se puede usar carácteres alfanuméricos").matches(/^[A-Z0-9]+$/i)
-    request.checkBody("option_3","Solo se puede usar carácteres alfanuméricos").matches(/^[A-Z0-9]+$/i)
-    request.checkBody("option_3","Solo se puede usar carácteres alfanuméricos").matches(/^[A-Z0-9]+$/i)
 
     request.getValidationResult().then(function(results){
         if(!results.isEmpty()){
@@ -159,7 +163,7 @@ app.post("/createnewquestion", (request, response) => {
             response.redirect("/newquestion");
         }
         else{
-            let numbanswers = 2, Qid;
+            let numbanswers = 2;
             if (request.body.option_3 !== "") {
                 numbanswers++;
                 if (request.body.option_4 !== "") {
@@ -170,43 +174,21 @@ app.post("/createnewquestion", (request, response) => {
                 question_text: request.body.question_text,
                 numbanswers: numbanswers
             }
-            daoquestions.newQuestion(question, (err) => {
+            let answers = [];
+            answers.push(request.body.option_1);
+            answers.push(request.body.option_2);
+            if (numbanswers >2) {
+                answers.push(request.body.option_3);
+                if (numbanswers>3) {
+                    answers.push(request.body.option_4);
+                }
+             }
+            daoquestions.newQuestion(question, answers, (err) => {
                 if (!err) {
-                    daoquestions.getLastQid((err, result) => {
-                        if (!err) {
-                            Qid = result - 1;
-                            daoquestions.insertAnswer(Qid, 1, request.body.option_1, (err) => {
-                                if (!err) {
-                                    daoquestions.insertAnswer(Qid, 2, request.body.option_2, (err) => {
-                                        if ((!err) && (numbanswers >=3)) {
-                                            daoquestions.insertAnswer(Qid, 3, request.body.option_3, (err) => {
-                                                if ((!err) && (numbanswers >=4)) {
-                                                    daoquestions.insertAnswer(Qid, 4, request.body.option_4, (err) => {
-                                                        if (err) {
-                                                            response.status(500).send('Error 500: Internal server error');
-                                                        }
-                                                    });
-                                                }
-                                                else {
-                                                    response.status(500).send('Error 500: Internal server error');
-                                                }
-                                            });
-                                        }
-                                        else {
-                                            response.status(500).send('Error 500: Internal server error');
-                                        }
-                                    });
-                                }
-                                else {
-                                    response.status(500).send('Error 500: Internal server error');
-                                }
-                            });
-                        }
-                        else {
-                            response.status(500).send('Error 500: Internal server error');
-                        }
-                    });
                     response.redirect("questions");
+                }
+                else {
+                    response.status(500).send('Error 500: Internal server error');
                 }
             });
         }

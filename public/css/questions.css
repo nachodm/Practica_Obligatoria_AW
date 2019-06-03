@@ -80,7 +80,7 @@ header{
     }
 
     #content {
-        margin-top: 80px;
+        margin-top: 30px;
         width: 60vw;
         margin-left: auto;
         margin-right: auto;
@@ -92,7 +92,7 @@ header{
         background-color: whitesmoke;
         color: #084270;
         padding: 14px 20px;
-        margin: 8px 0;
+        margin: 6px 0;
         border: none;
         cursor: pointer;
         width: 100%;
@@ -100,11 +100,10 @@ header{
         border-radius: 5px;
         font-size: 30px;
     }
-    
 
     .container{
-        margin-top: 80px;
-        margin-bottom: 80px;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
     h1{
