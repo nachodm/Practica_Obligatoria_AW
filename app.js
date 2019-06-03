@@ -310,7 +310,6 @@ app.post("/isUserCorrect", (request, response) => {
     })
 });
 
-
 app.post("/modifyUser", multerFactory.single("picture"), (request, response) => {
     let file = "";
     if(request.body.birthday) {
