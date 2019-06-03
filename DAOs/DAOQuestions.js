@@ -182,13 +182,13 @@ class DAOQuestions {
                 callback("Error de conexión con la BBDD", false);
             }
             else {
-                conn.query("SELECT a.Qid, a.text FROM answers a where a.Qid=? UNION SELECT o.Qid, o.text FROM ownanswers o where o.Qid = ? and o.email=?"),
+                conn.query("SELECT a.Qid, a.text FROM answers a where a.Qid=? UNION SELECT o.Qid, o.text FROM ownanswers o where o.Qid = ? and o.email=?",
                 [Qid,Qid, friendEmail], (err, rows)=>{
                     if (err) {
                         callback(err, null);
                     }
                     else {
-                        conn.query("SELECT text from ownanswers where Qid = ? and email = ?"),[Qid, friendEmail],
+                        conn.query("SELECT text from ownanswers where Qid = ? and email = ?",[Qid, friendEmail],
                         (err, goodAnswer) =>{
                             conn.release();
                             if (err) {
@@ -209,12 +209,11 @@ class DAOQuestions {
                                 sol.push(randomquest);
                                 callback(undefined, sol);
                             }
-                        }
+                        });
                     }
-                }
+                });
             }
-           
-        })
+        });
     }
 
     /**
