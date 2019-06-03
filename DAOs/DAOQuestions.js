@@ -196,18 +196,17 @@ class DAOQuestions {
                             }
                             else {
                                 var randomquest = [];
-                                randomquest.push(goodAnswer);
-                                var salir = false;
-                                var i = 1;
-                                while(!salir && i < rows.length){
-                                var rand = myArray[Math.floor(Math.random() * rows.length)];
-                                    randomquest.push(rows[rand].text);
+                                var i = 0;
+                                while(i < rows.length){
+                                    var rand = Math.floor(Math.random() * rows.length);
+                                    randomquest.push(rows[rand]);
+                                    rows.splice(rand,1);
                                     ++i;
                                 }
-                                var sol = [];
-                                sol.push(Qid);
-                                sol.push(randomquest);
-                                callback(undefined, sol);
+                                randomquest;
+                                randomquest.push({Qid: -1, text: goodAnswer[0].text});
+                                randomquest;
+                                callback(undefined, randomquest);
                             }
                         });
                     }

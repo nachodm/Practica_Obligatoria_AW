@@ -226,6 +226,24 @@ app.post("/guessanswer", (request, response) => {
     response.redirect("answerquestion");
 })
 
+
+app.post("/finalguess", (request, response) => {
+    if (request.body.correctguess === -1) {
+        request.session.userData.points = request.session.userData.points +50;
+        daousers.updatePoints(request.session.currentUser, request.session.userData.points, (err) => {
+            if (err) {
+                response.status(500).send('Error 500: Internal server error');
+            }
+            else {
+                response.redirect("profile");
+            }
+        })
+    }
+    else {
+        response.redirect("profile");
+    }
+})
+
 app.post("/uploadpicture", multerFactory.single("file"), (request, response) => {
     let file = "";
     if (request.file) {
@@ -291,6 +309,8 @@ app.get("/answerquestion", (request, response) => {
          }
     }
 })
+
+
 
 app.get("/modify", (request, response) => {
     if (request.session.currentUser !== undefined) {
