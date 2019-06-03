@@ -263,7 +263,8 @@ app.get("/answerquestion", (request, response) => {
     }
     else {
         daoquestions.getQuestionData(request.query.id, (err, data) =>{
-            response.render("answerquestion", {user: request.session.currentUser, data: data, guessing: false, data: request.session.userData});
+            console.log(data.id);
+            response.render("answerquestion", {user: request.session.currentUser, qInfo: data, data: request.session.userData});
         });
     }
 })
