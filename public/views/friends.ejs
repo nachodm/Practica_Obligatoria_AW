@@ -102,7 +102,11 @@
                         <form method="POST" action="sendFriendRequest">
                         <td colspan="4">
                             <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
-                            <img class="icon_miniature" src="img/<%=p.picture%>" alt="profile picture" /> <a class="friendsView"
+                            <% if (p.picture) { %>
+                                <img class="icon_miniature" src="img/<%=p.picture%>" alt="profile picture" /> 
+                            <% } else { %>
+                                <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                            <% } %><a class="friendsView"
                                 href="#"> <%= p.name %> </a>
                         </td>
                         <td class="bord">
