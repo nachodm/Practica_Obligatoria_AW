@@ -232,3 +232,7 @@ input[type=text] {
 .inputfile + label {
 	cursor: pointer; /* "hand" cursor */
 }
+
+h4{
+  color: white;
+}
