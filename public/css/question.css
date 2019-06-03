@@ -31,6 +31,12 @@ body {
   pointer-events: none;
 }
 
+.icon_miniature {
+  padding: 2px;
+  max-width:50px;
+  height: auto;
+}
+
 header{
     font-family: 'Margarine', cursive !important;
     text-align: center;
@@ -150,12 +156,13 @@ td > * {
   background-color: whitesmoke;
   color: #084270;
   padding: 14px 20px;
-  margin-left: 60%;
+  margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 90%;
   transition: 0.3s;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .profile_button:hover {

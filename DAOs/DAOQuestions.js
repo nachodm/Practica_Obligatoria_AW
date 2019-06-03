@@ -141,7 +141,7 @@ class DAOQuestions {
                 callback("Error de conexion a la BBDD", undefined);
             }
             
-            conn.query("SELECT DISTINCT name, ownanswers.email, status, Qid, text FROM users NATURAL JOIN friends NATURAL JOIN ownanswers where Qid = ?  and friends.status = 2", [Qid], (err, rows)=>{
+            conn.query("SELECT DISTINCT name, profile_picture, ownanswers.email, status, Qid, text FROM users NATURAL JOIN friends NATURAL JOIN ownanswers where Qid = ?  and friends.status = 2", [Qid], (err, rows)=>{
                 if(err){
                     callback(err, undefined);
                 }
@@ -153,7 +153,8 @@ class DAOQuestions {
                             while (!encontrado && i < friends.length){
                                 if (p.email == email) encontrado = true;
                                 else if(p.email == friends[i].email){
-                                    fanswers.push(p.name);
+                                    let friend = {name: p.name, picture: p.profile_picture};
+                                    fanswers.push(friend);
                                     encontrado = true;
                                 }
                                 ++i;

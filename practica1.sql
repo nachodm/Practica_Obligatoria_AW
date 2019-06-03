@@ -62,17 +62,3 @@ CREATE TABLE `ownanswers` (
     CONSTRAINT `ownanswers_fk_2` FOREIGN KEY (`Qid`) REFERENCES `answers` (`Qid`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `ownanswers_fk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
-INSERT INTO users VALUES ("agata@ucm.es", "agata", "Agata", "F", null, null, 50);
-INSERT INTO users VALUES ("gema@ucm.es", "gema", "Gema", "F", null, null, 50);
-INSERT INTO users VALUES ("alejandro@ucm.es", "Alejandro", "Alejandro", "M", null, null, 50);
-INSERT INTO users VALUES ("tamara@ucm.es", "tamara", "Tamara", "F", null, null, 50);
-
-INSERT INTO friends VALUES ("Tamara@ucm.es", "alberto@ucm.es", 1);
-INSERT INTO friends VALUES ("julia@ucm.es", "alberto@ucm.es", 1);
-INSERT INTO friends VALUES ("nacho@ucm.es", "alberto@ucm.es", 1);
-INSERT INTO friends VALUES ("Alejandro@ucm.es", "alberto@ucm.es", 2);
-INSERT INTO friends VALUES ("gema@ucm.es", "alberto@ucm.es", 2);
-
-
