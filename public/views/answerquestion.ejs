@@ -23,7 +23,7 @@
             </div>
         </header>
         <div id="content">
-            <% if (qInfo) { %>
+            <% if (qInfo !== null) { %>
                 <h2><%= qInfo.question_text %></h2>
                 <ul>
                     <% qInfo.answers.forEach(p=>{ %>
@@ -39,8 +39,7 @@
                         <li class="questions answ"><button type="submit">Responder</button> <input type="text" name="answer" placeholder="Otra respuesta"></li>
                     </form>                    
                 </ul>
-            <% } %>
-            else {
+            <% } else { %>
                 <h2>Adivinando la pregunta <%= answers.question_text %></h2>
                 <ul>
                     <% qInfo.answers.forEach(p=>{ %>
@@ -56,7 +55,7 @@
                         <li class="questions answ"><button type="submit">Responder</button> <input type="text" name="answer" placeholder="Otra respuesta"></li>
                     </form>                    
                 </ul>
-            }
+            <% } %>
         </div>
     </body>
 </html>

@@ -277,7 +277,7 @@ app.get("/answerquestion", (request, response) => {
             });
         }
         else {
-            daoquestions.getRandomAnwers(request.session.guess.question, request.session.guess.user, (err, answers) => {
+            daoquestions.getRandomAnswers(request.session.guess.question, request.session.guess.user, (err, answers) => {
                 if (err) {
                     response.status(500).send('Error 500: Internal server error');
                 }

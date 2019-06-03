@@ -177,34 +177,41 @@ class DAOQuestions {
      * @param {*} callback 
      */
     getRandomAnswers(Qid, friendEmail,callback){
-        this.pool.getConnection(conn, (err)=>{
-            if(err){
-                callback(err, null);
-            } 
+        this.pool.getConnection((err, conn)=>{
+            if (err) {
+                callback("Error de conexión con la BBDD", false);
+            }
             else {
                 conn.query("SELECT a.Qid, a.text FROM answers a where a.Qid=? UNION SELECT o.Qid, o.text FROM ownanswers o where o.Qid = ? and o.email=?"),
                 [Qid,Qid, friendEmail], (err, rows)=>{
-                    conn.query("SELECT text from ownanswers where Qid = ? and email = ?"),[Qid, friendEmail],
-                    (err, goodAnswer) =>{
-                        conn.release();
-                        if (err) {
-                            callback(err, null);
-                        }
-                        var randomquest = [];
-                        randomquest.push(goodAnswer);
-                        var salir = false;
-                        var i = 1;
-                        while(!salir && i < rows.length){
-                        var rand = myArray[Math.floor(Math.random() * rows.length)];
-                            randomquest.push(rows[rand].text);
-                            ++i;
+                    if (err) {
+                        callback(err, null);
+                    }
+                    else {
+                        conn.query("SELECT text from ownanswers where Qid = ? and email = ?"),[Qid, friendEmail],
+                        (err, goodAnswer) =>{
+                            conn.release();
+                            if (err) {
+                                callback(err, null);
+                            }
+                            else {
+                                var randomquest = [];
+                                randomquest.push(goodAnswer);
+                                var salir = false;
+                                var i = 1;
+                                while(!salir && i < rows.length){
+                                var rand = myArray[Math.floor(Math.random() * rows.length)];
+                                    randomquest.push(rows[rand].text);
+                                    ++i;
+                                }
+                                var sol = [];
+                                sol.push(Qid);
+                                sol.push(randomquest);
+                                callback(undefined, sol);
+                            }
                         }
                     }
                 }
-                var sol = [];
-                sol.push(Qid);
-                sol.push(randomquest);
-                callback(undefined, sol);
             }
            
         })
