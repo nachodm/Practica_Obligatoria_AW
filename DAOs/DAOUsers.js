@@ -7,6 +7,33 @@ class DAOUsers {
     }
 
     /**
+     * Comprueba si un usuario ya existe en la bbdd.
+     * @param {*} email 
+     * @param {*} callback 
+     */
+
+    checkUser(email, callback) {
+        this.pool.getConnection((err, conn) =>{
+            if(err) callback("Error de acceso a la BBDD", null);
+            else{
+                conn.query("SELECT email FROM users WHERE email = ?",
+                [email],
+                (err, rows) =>{
+                    conn.release();
+                    if(err) callback(err, null);
+                    else {
+                        if (rows.length > 0) {
+                            callback(null, true);
+                        }
+                        else {
+                            callback(null, null);
+                        }
+                    }
+                })
+            }
+        })
+    }
+    /**
      * 
      * @param {*} userData 
      * @param {*} callback 
@@ -62,7 +89,7 @@ class DAOUsers {
                 callback("Error de conexion a la BBDD", undefined);
             }
             connection.query("UPDATE users SET email = ?, psw = ?, name = ?, gender = ?, birthday = ?, profile_picture = ? WHERE email = ?",
-            [user.email, user.password, user.name, user.gender, user.birthdate, user.profile_picture, user.email],
+            [user.email, user.password, user.name, user.gender, user.birthday, user.profile_picture, user.email],
             (err) => {
                 connection.release();
                 if (err) {callback(err, undefined);}

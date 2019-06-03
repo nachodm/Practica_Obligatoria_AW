@@ -356,7 +356,7 @@ app.post("/isUserCorrect", (request, response) => {
 
 app.post("/modifyUser", multerFactory.single("picture"), (request, response) => {
     let file = "";
-    if(request.body.birthday) {
+    if(request.body.bdate) {
         request.checkBody("bdate", "La fecha no puede ser posterior a la actual").isBefore();
     }
     request.checkBody("email","Email no válido").isEmail();
@@ -434,35 +434,47 @@ app.post("/signUp", multerFactory.single("picture"),(request, response) => {
         request.checkBody("bdate", "Fecha de nacimiento no válida").isBefore();
     }
 
-    request.getValidationResult().then(function(result){
-        if(result.isEmpty()){
-            let file = "";
-            if (request.file) {
-                file = request.file.filename;
-            }
-            var userData = {
-                email: request.body.email,
-                password: request.body.psw,
-                name: request.body.name,
-                gender: request.body.gender,
-                birthday: request.body.bdate,
-                profile_picture: file, 
-                points: 0
-            }
-            daousers.newUser(userData, (err) => {
-                if (err) {
-                    response.status(500).send('Error 500: Internal server error');
+    daousers.checkUser(request.body.email, (err, result) => {
+        if (err){
+            response.status(500).send('Error 500: Internal server error');
+        }
+        else if (result) {
+            request.session.newUserErr = [];
+            request.session.newUserErr.push({msg:"El email introducido ya se encuentra en la bbdd"});
+            response.redirect("newUser");
+        }
+        else {
+            request.getValidationResult().then(function(result){
+                if(result.isEmpty()){
+                    let file = "";
+                    if (request.file) {
+                        file = request.file.filename;
+                    }
+                    var userData = {
+                        email: request.body.email,
+                        password: request.body.psw,
+                        name: request.body.name,
+                        gender: request.body.gender,
+                        birthday: request.body.bdate,
+                        profile_picture: file, 
+                        points: 0
+                    }
+                    daousers.newUser(userData, (err) => {
+                        if (err) {
+                            response.status(500).send('Error 500: Internal server error');
+                        }
+                        else {
+                            request.session.currentUser = userData.email;
+                            request.session.userData = userData;
+                            response.redirect("profile");
+                        }
+                    })
                 }
-                else {
-                    request.session.currentUser = userData.email;
-                    request.session.userData = userData;
-                    response.redirect("profile");
+                else{
+                    request.session.newUserErr = result.array();
+                    response.redirect("newUser");
                 }
             })
-        }
-        else{
-            request.session.newUserErr = result.array();
-            response.redirect("newUser");
         }
     })
 })
