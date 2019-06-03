@@ -343,7 +343,7 @@ app.post("/modifyUser", multerFactory.single("picture"), (request, response) => 
                 password: request.body.psw,
                 name: request.body.name,
                 gender: request.body.gender,
-                birthdate: request.body.bdate,
+                birthday: request.body.bdate,
                 profile_picture: file,
                 points: request.session.userData.points
             }
