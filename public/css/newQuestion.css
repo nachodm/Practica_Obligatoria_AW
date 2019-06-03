@@ -13,7 +13,19 @@ header{
     font-family: 'Margarine', cursive !important;
     text-align: center;
     background-color: whitesmoke;
+}
 
+.errors {
+    margin: 4px 0px;
+    padding: 4px 5px;
+    border: solid 1px #DC3545;
+    list-style: none;
+    background-color: #F8D7DA;
+}
+
+.errors li {
+    color: #721C24;
+    padding: 2px;
 }
 
 .sup{
@@ -28,6 +40,10 @@ header{
     background-color: whitesmoke;
     overflow: auto;
 }
+
+.disabled {
+    pointer-events: none;
+  }
 
 /* Navigation links */
 .navbar a {

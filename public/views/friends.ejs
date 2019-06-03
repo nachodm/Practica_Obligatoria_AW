@@ -20,7 +20,9 @@
             <a class="active" href="#">Amigos</a>
             <a href="/questions">Preguntas</a>
             <a href="/logout">Desconectar</a>
-            <div> 50 pts</div>
+            <% if(data) { %>
+                <a class="disabled"> <%= data.points %> pts.</a>
+            <% } %>
         </div>
     </header>
    
@@ -32,58 +34,53 @@
     
     
             <% if (friendsRequest) { %>
-            
                 <table> 
                     <% friendsRequest.forEach( p=> { %>
-                    <tr>
-                        <form method="POST" action="friendResponse">
-                        <td colspan="4">
-                            <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
-                            <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
-                            <a class="friendsView"> <%= p.name %> </a>
-                        </td>
-                        <td class="bord">
-                            <input class="profile_button" type="submit" name="btn" value="Aceptar">
-                        </td>
-                        <td>
-                            <input class="profile_button" type="submit" name="btn" value="Rechazar">
-                        </td>
-                        </form>
-                    </tr>
-    
+                        <tr>
+                            <form method="POST" action="friendResponse">
+                            <td colspan="4">
+                                <input type ="hidden" name= "friendrequest" value="<%=p.email%>" >
+                                <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> 
+                                <a class="friendsView"> <%= p.name %> </a>
+                            </td>
+                            <td class="bord">
+                                <input class="profile_button" type="submit" name="btn" value="Aceptar">
+                            </td>
+                            <td>
+                                <input class="profile_button" type="submit" name="btn" value="Rechazar">
+                            </td>
+                            </form>
+                        </tr>
                     <% }) %>
                 </table>
             <% } %>
            </div>
     
-    
            <div>
-            <h2 class="mytext">Mis amigos</h2>
-    
-            <% if(friends) { %>
-                <table class="tablefriends">
-                    <% friends.forEach( p =>{ %>
-                    <tr>
-                        <td>
-                            <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
-                                href="#"> <%= p.name %></a>
-                        <td class="bord">
-                            <a class="profile_button visitar" href="/profile?email=<%= p.email %>" value="Visitar"> Visitar </a>    
-                        </td>
-                    </tr>
-                    <% }) %>
-                </table>
+                <h2 class="mytext">Mis amigos</h2>
+                <% if(friends) { %>
+                    <table class="tablefriends">
+                        <% friends.forEach( p =>{ %>
+                        <tr>
+                            <td>
+                                <img class="icon_miniature" src="img/cara.png" alt="profile picture" /> <a class="friendsView"
+                                    href="#"> <%= p.name %></a>
+                            <td class="bord">
+                                <a class="profile_button visitar" href="/profile?email=<%= p.email %>" value="Visitar"> Visitar </a>    
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </table>
                 <% } %>
-    
            </div>
         </div>
     
         <div class="right">
+            <h2 class="mytext">Búsqueda de usuarios:</h2>
             <form action="/search" method="POST">
-                <input type="text" name="name" id="name" placeholder="Buscar usuarios">
+                <input type="text" name="name" id="name" placeholder="Buscar usuarios" accept="image/*">
                 <button type="submit" value="Buscar">Buscar</button>
             </form>
-    
     
             <div class="friends_search">
                 <h2>Amigos encontrados</h2>

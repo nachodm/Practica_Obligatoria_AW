@@ -103,7 +103,6 @@ button {
     transition: 0.3s;
 }
 
-
 button:hover {
     opacity: 0.8;
 }
@@ -124,7 +123,6 @@ button:hover {
     color: #721C24;
     padding: 2px;
 }
-
 
 footer {
     margin-top: 60px;

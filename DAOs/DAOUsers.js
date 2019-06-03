@@ -61,7 +61,7 @@ class DAOUsers {
             if (err) {
                 callback("Error de conexion a la BBDD", undefined);
             }
-            connection.query("UPDATE users SET email = ?, password = ?, name = ?, gender = ?, birthdate = ?, profile_picture = ? WHERE email = ?",
+            connection.query("UPDATE users SET email = ?, psw = ?, name = ?, gender = ?, birthday = ?, profile_picture = ? WHERE email = ?",
             [user.email, user.password, user.name, user.gender, user.birthdate, user.profile_picture, user.email],
             (err) => {
                 connection.release();
@@ -72,6 +72,76 @@ class DAOUsers {
             })
         });
     }
+    
+    /**
+     * Inserta en la base de datos la foto cuyos datos recibe por parámetros (id del usuario propietario y foto a insertar)
+     * @param {String} user Id del usuario que va a insertar la foto
+     * @param {String} desc Descripción de la imagen a insertar
+     * @param {*} picture Imagen a insertar en la base de datos
+     * @param {Function} callback Función que devolverá el resultado de la inserción: err en caso de error y null en caso contrario
+     */
+    uploadPicture(user, desc, picture, callback) {
+        this.pool.getConnection((err, conn) => {
+            if (err) {
+                callback(err);
+            }
+            else {
+                conn.query("INSERT INTO gallery VALUES (?, ?, ?)", [user, picture, desc],
+                (err) => {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null);
+                    }
+                })
+            }
+        })
+    }
+
+    /**
+     * Inserta en la base de datos la foto cuyos datos recibe por parámetros (id del usuario propietario y foto a insertar)
+     * @param {String} user Id del usuario que va a insertar la foto
+     * @param {function} callback Función que devolverá el objeto error o el resultado de la consulta.
+     */
+    getPictures(user, callback) {
+        this.pool.getConnection((err, conn) => {
+            if (err) {
+                callback(err, null);
+            }
+            else {
+                conn.query("SELECT picture, gallery.desc FROM gallery WHERE email = ?", [user],
+                (err, pictures) => {
+                    if (err) {
+                        callback(err, null);
+                    }
+                    else {
+                        callback(null, pictures);
+                    }
+                })
+            }
+        })
+    }
+
+    updatePoints(user, points, callback) {
+        this.pool.getConnection((err, conn) => {
+            if (err) {
+                callback(err);
+            }
+            else {
+                conn.query("UPDATE users SET points = ? WHERE email = ?", [points, user], 
+                (err) => {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null);
+                    }
+                })
+            }
+        })
+    }
+
 
     /**
      * 
@@ -262,6 +332,20 @@ class DAOUsers {
                 )
             }
         });
+    }
+
+    /**
+     * Calcula la edad de un usuario en función de su fecha de nacimiento
+     * @param {Date} date Fecha de nacimiento del usuario
+     * @param {function} callback  Función que devolverá el objeto error o el resultado
+     */
+    parseAge (date, callback) {
+        var year = new Date(date.toString());
+        let age;
+        var diff_ms = Date.now() -  year.getTime();
+        var age_dt = new Date(diff_ms); 
+        age = Math.abs(age_dt.getUTCFullYear() - 1970);
+        callback (age);
     }
 }
 

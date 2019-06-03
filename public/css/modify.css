@@ -112,6 +112,10 @@ input[type=radio] {
     margin-left: 5%;
 }
 
+.disabled {
+    pointer-events: none;
+  }
+
 /* Set a style for all buttons */
 button {
     background-color: #084270;

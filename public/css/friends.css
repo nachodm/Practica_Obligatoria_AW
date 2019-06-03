@@ -141,7 +141,7 @@ td > * {
 }
 
 .mytext{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .friendsView {
@@ -161,29 +161,33 @@ h2{
 /*RIGHT*/
 
 .right{
+    max-width: 50vw;
+    border-left: solid 1px whitesmoke;
     display: flex;
     flex-direction: column;
     flex-basis: 50%;
     margin-top: 50px;
 }
 
+.disabled {
+    pointer-events: none;
+  }
+
 .rightTable{
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 .friends_search{
-   
+    min-width: 80%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    width: 900px;
     border-radius: 20px;
 }
 
 form {
-    
-    width: 800px; 
+    width: 100%; 
     margin-left: auto;
     margin-right: auto;
 }

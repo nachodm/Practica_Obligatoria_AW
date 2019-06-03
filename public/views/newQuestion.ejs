@@ -18,16 +18,20 @@
                 <a href="/friends">Amigos</a>        
                 <a href="/questions">Preguntas</a>        
                 <a href="/logout">Desconectar</a>
-                <div> 0 puntos</div>
+                <% if(data) { %>
+                    <a class="disabled"> <%= data.points %> pts.</a>
+                <% } %>
             </div>
         </header>
         <div class="content">
             <div id="title"><strong>Nueva Pregunta</strong></div>
             <div class ="question">
                 <% if (errors) { %>
-                   <% errors.forEach(p =>{ %>
-                        <li><%= p.msg %></li>
-                   <% }) %>
+                    <ul class="errors">
+                        <% errors.forEach(p=>{ %>
+                            <li> <%= p.msg %></li>
+                        <% }) %>
+                    </ul>
                 <% } %>
                      
                 <form id="quesinf" method="POST" action="/createnewquestion">

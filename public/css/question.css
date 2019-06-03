@@ -27,6 +27,10 @@ body {
     flex-direction: column;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 header{
     font-family: 'Margarine', cursive !important;
     text-align: center;
