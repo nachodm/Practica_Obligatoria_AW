@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Margarine');
 @import url('https://fonts.googleapis.com/css?family=Exo');
 
-
 *{
     margin: 0;
     top: 0;
@@ -36,13 +35,6 @@ header{
     text-align: center;
     background-color: whitesmoke;
 }
-
-#logo {
-    margin: 10px;
-    max-width:30%;
-    height: auto;
-}
-
 
   .navbar {
     width: 100%;
@@ -98,13 +90,6 @@ h1{
   color: whitesmoke;
 }
 
-p{
-  font-size: 30px;
-  margin-bottom: 30px;
-  color: whitesmoke;
-}
-
-
 .question{
     padding: 50px;
     background-color: whitesmoke;
@@ -114,45 +99,14 @@ p{
     margin-top: 10px;
 }
 
-/* Bordered form */
-form {
-    border: 3px solid #f1f1f1;
-}
-
 /* Full-width inputs */
-input[type=text], input[type=password], input[type=date], input[type=file] {
+input[type=text] {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 0 20px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-}
-
-input[type=radio] {
-    margin-left: 5%;
-}
-
-/* Set a style for all buttons */
-button {
-    background-color: #084270;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    transition: 0.3s;
-}
-
-/* Add a hover effect for buttons */
-button:hover {
-    opacity: 0.8;
-}
-
-/* Add padding to containers */
-.container {
-    padding: 16px;
 }
 
 footer {
@@ -168,5 +122,34 @@ footer {
 }
 
 li{
-  list-style-type: none
+  list-style-type: none;
+}
+
+.answ {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cen {
+  margin-right: 50%;
+}
+
+.profile_button {
+  border: 1px solid #ccc;
+  background-color: whitesmoke;
+  color: #084270;
+  padding: 14px 20px;
+  transition: 0.3s;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Add a hover effect for buttons */
+.profile_button:hover {
+  border: solid 1.5px whitesmoke;
+  background-color: #084270;
+  color: whitesmoke;
+  opacity: 0.8;
 }
