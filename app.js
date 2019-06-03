@@ -217,6 +217,15 @@ app.get("/question", (request, response) => {
     });
 })
 
+app.post("/guessanswer", (request, response) => {
+    request.session.answering = true;
+    request.session.guess =  {
+        question: request.body.question,
+        user: request.body.guess
+    }
+    response.redirect("answerquestion");
+})
+
 app.post("/uploadpicture", multerFactory.single("file"), (request, response) => {
     let file = "";
     if (request.file) {
@@ -262,9 +271,24 @@ app.get("/answerquestion", (request, response) => {
         response.redirect("login");
     }
     else {
-        daoquestions.getQuestionData(request.query.id, (err, data) =>{
-            response.render("answerquestion", {user: request.session.currentUser, qInfo: data, data: request.session.userData});
-        });
+        if (request.session.answering === undefined) {
+            daoquestions.getQuestionData(request.query.id, (err, data) =>{
+                response.render("answerquestion", {user: request.session.currentUser, qInfo: data, data: request.session.userData, answers: null, guess:null});
+            });
+        }
+        else {
+            daoquestions.getRandomAnwers(request.session.guess.question, request.session.guess.user, (err, answers) => {
+                if (err) {
+                    response.status(500).send('Error 500: Internal server error');
+                }
+                else {
+                    delete request.session.answering;
+                    let guess = request.session.guess;
+                    delete request.session.guess;
+                    response.render("answerquestion", {user: request.session.currentUser, qInfo: null, data: request.session.userData, answers: answers, guess:guess});        
+                }
+            })
+         }
     }
 })
 
@@ -382,11 +406,6 @@ app.post("/sendFriendRequest", (request, response) => {
         }
     });
 });
-
-app.post("/guessquestion", (request, response)=>{
-    
-    response.render("questions/::id");
-})
 
 app.post("/signUp", multerFactory.single("picture"),(request, response) => {
     request.checkBody("email", "Direccion de correo no válida").isEmail();

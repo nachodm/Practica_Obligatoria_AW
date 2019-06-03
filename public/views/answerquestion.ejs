@@ -23,10 +23,9 @@
             </div>
         </header>
         <div id="content">
-            <% if (qInfo) %>
-            <h2><%= qInfo.question_text %></h2>
+            <% if (qInfo) { %>
+                <h2><%= qInfo.question_text %></h2>
                 <ul>
-
                     <% qInfo.answers.forEach(p=>{ %>
                         <form method="POST" action="/answerQuestion">
                             <input type="hidden" name="answer" value="<%=p.text%>">
@@ -40,6 +39,24 @@
                         <li class="questions answ"><button type="submit">Responder</button> <input type="text" name="answer" placeholder="Otra respuesta"></li>
                     </form>                    
                 </ul>
+            <% } %>
+            else {
+                <h2>Adivinando la pregunta <%= answers.question_text %></h2>
+                <ul>
+                    <% qInfo.answers.forEach(p=>{ %>
+                        <form method="POST" action="/answerQuestion">
+                            <input type="hidden" name="answer" value="<%=p.text%>">
+                            <input name="qid" type="hidden" value="<%= qInfo.id %>">
+                            <li class="questions answ"><button type="submit">Responder</button> <%= p.text %></li>
+                        </form>
+                    <% }) %>
+ 
+                    <form method="POST" action="/answerQuestion">
+                        <input name="qid" type="hidden" value="<%= qInfo.id %>">
+                        <li class="questions answ"><button type="submit">Responder</button> <input type="text" name="answer" placeholder="Otra respuesta"></li>
+                    </form>                    
+                </ul>
+            }
         </div>
     </body>
 </html>

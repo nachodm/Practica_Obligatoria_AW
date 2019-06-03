@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
         <title>Pregunta - Facebluff</title>
         <meta name="description" content="Facebluff">
@@ -51,7 +50,11 @@
                             <% } %><a class="friendsView"
                                 href="#"> <%= p.name %></a>
                         <td class="bord">
-                            <a class="profile_button" href="/profile?email=<%= p.email %>" value="Adivinar"> Adivinar </a>    
+                            <form action="guessanswer" method="POST">
+                                <input type ="hidden" name= "guess" value="<%=p.email%>" >
+                                <input type ="hidden" name= "question" value="<%= question.id%>" >
+                                <input class="profile_button" type="submit" value="Adivinar"> 
+                            </form>  
                         </td>
                     </tr>
                     <% }) %>

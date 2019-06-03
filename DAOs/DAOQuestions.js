@@ -141,7 +141,7 @@ class DAOQuestions {
                 callback("Error de conexion a la BBDD", undefined);
             }
             
-            conn.query("SELECT DISTINCT name, profile_picture, ownanswers.email, status, Qid, text FROM users NATURAL JOIN friends NATURAL JOIN ownanswers where Qid = ?  and friends.status = 2", [Qid], (err, rows)=>{
+            conn.query("SELECT DISTINCT email, name, profile_picture, ownanswers.email, status, Qid, text FROM users NATURAL JOIN friends NATURAL JOIN ownanswers where Qid = ?  and friends.status = 2", [Qid], (err, rows)=>{
                 if(err){
                     callback(err, undefined);
                 }
@@ -153,7 +153,7 @@ class DAOQuestions {
                             while (!encontrado && i < friends.length){
                                 if (p.email == email) encontrado = true;
                                 else if(p.email == friends[i].email){
-                                    let friend = {name: p.name, picture: p.profile_picture};
+                                    let friend = {name: p.name, picture: p.profile_picture, email: p.email};
                                     fanswers.push(friend);
                                     encontrado = true;
                                 }
@@ -168,6 +168,46 @@ class DAOQuestions {
             })
             
         });
+    }
+
+    /**
+     * 
+     * @param {*} Qid 
+     * @param {*} friendEmail 
+     * @param {*} callback 
+     */
+    getRandomAnswers(Qid, friendEmail,callback){
+        this.pool.getConnection(conn, (err)=>{
+            if(err){
+                callback(err, null);
+            } 
+            else {
+                conn.query("SELECT a.Qid, a.text FROM answers a where a.Qid=? UNION SELECT o.Qid, o.text FROM ownanswers o where o.Qid = ? and o.email=?"),
+                [Qid,Qid, friendEmail], (err, rows)=>{
+                    conn.query("SELECT text from ownanswers where Qid = ? and email = ?"),[Qid, friendEmail],
+                    (err, goodAnswer) =>{
+                        conn.release();
+                        if (err) {
+                            callback(err, null);
+                        }
+                        var randomquest = [];
+                        randomquest.push(goodAnswer);
+                        var salir = false;
+                        var i = 1;
+                        while(!salir && i < rows.length){
+                        var rand = myArray[Math.floor(Math.random() * rows.length)];
+                            randomquest.push(rows[rand].text);
+                            ++i;
+                        }
+                    }
+                }
+                var sol = [];
+                sol.push(Qid);
+                sol.push(randomquest);
+                callback(undefined, sol);
+            }
+           
+        })
     }
 
     /**
